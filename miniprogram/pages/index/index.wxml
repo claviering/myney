@@ -33,4 +33,13 @@
     </navigator>
   </view>
 
+  <view class="input-money-box">
+    <input class="input-money" type="number" placeholder="输入金额" />
+  </view>
+
+  <view class="footer">
+    <footer></footer>
+  </view>
+  
+
 </view>

@@ -1,0 +1,4 @@
+<view class="components-footer">
+  <view class="components-footer-button">-</view> 
+  <view class="components-footer-button">+</view> 
+</view>

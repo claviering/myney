@@ -1,0 +1,6 @@
+{
+  "less.cpmpile": {
+    "compress": true,
+    "outExt": ".wxss"
+  }
+}

@@ -1,0 +1,8 @@
+.components-footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.components-footer .components-footer-button{
+  height: 100%;
+}

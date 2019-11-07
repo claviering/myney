@@ -1,18 +1,1 @@
-.input-money-box{
-  background-color: white;
-  width: 90%;
-  height: 50px;
-  line-height: 50px;
-  padding: 0px 5%;
-}
-.input-money-box .input-money{
-  height: 50px;
-}
-
-.footer{
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  height: 20vh;
-  line-height: 20vh;
-}
+.input-money-box{background-color:white;width:90%;height:50px;line-height:50px;padding:0px 5%}.input-money-box .input-money{height:50px}.footer{position:fixed;bottom:0px;width:100%;height:20vh;line-height:20vh}

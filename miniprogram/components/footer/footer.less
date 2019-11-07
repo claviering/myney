@@ -1,0 +1,43 @@
+@negativeColor: #f2317f; // 减号颜色
+@positiveColor: #00c07f; // 加好颜色
+
+// 减号和加号中间伪元素的定位、大小。颜色
+.centerSymbol (@height, @width, @color) {
+  content: "";
+  background: @color;
+  position: absolute;
+  height: @height;
+  width: @width;
+  transform: translateY(-50%) translateX(-50%);
+  top: 50%;
+  left: 50%;
+}
+
+.components-footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  .components-footer-button{
+    height: 25vw;
+    width: 25vw;
+    border-radius: 50%;
+    background: #FFF;
+    border: 3vw solid;
+    position: relative;
+  }
+  .negative{
+    border-color: @negativeColor;
+    &::after{
+      .centerSymbol(2vw, 10vw, @negativeColor);
+    }
+  }
+  .positive{
+    border-color: @positiveColor;
+    &::before{
+      .centerSymbol(10vw, 2vw, @positiveColor);
+    }
+    &::after{
+      .centerSymbol(2vw, 10vw, @positiveColor);
+    }
+  }
+}

@@ -1,4 +1,12 @@
 <view class="components-footer">
-  <view class="components-footer-button">-</view> 
-  <view class="components-footer-button">+</view> 
+  <view
+    data-option="negative"
+    bindtap="goToUpdateMoney"
+    class="components-footer-button negative">
+  </view> 
+  <view
+    data-option="positive"
+    bindtap="goToUpdateMoney"
+    class="components-footer-button positive">
+  </view> 
 </view>

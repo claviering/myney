@@ -1,6 +1,8 @@
 {
-  "less.cpmpile": {
+  "less.compile": {
     "compress": true,
+    "sourceMap": false,
+    "autoprefixer": "> 5%, last 2 Chrome versions, not ie 6-9",
     "outExt": ".wxss"
-  }
+  },
 }

@@ -1,5 +1,5 @@
 const LanguageMap = {
-  month: {
+  MONTH: {
     0: 'January',
     1: 'February',
     2: 'March',
@@ -13,14 +13,14 @@ const LanguageMap = {
     10: 'November',
     11: 'December',
   },
-  week: {
-    0: 'Monday',
-    1: 'Tuesday',
-    2: 'Wednesday',
-    3: 'Thursday',
-    4: 'Friday',
-    5: 'Saturday',
-    6: 'Sunday',
+  WEEK: {
+    0: 'Sunday',
+    1: 'Monday',
+    2: 'Tuesday',
+    3: 'Wednesday',
+    4: 'Thursday',
+    5: 'Friday',
+    6: 'Saturday',
   }
 }
 

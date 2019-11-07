@@ -1,5 +1,4 @@
 <view>
-  显示日期
-  {{week}}{{month}}{{day}}
+  {{dataText}}
 </view>
   

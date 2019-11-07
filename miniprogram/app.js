@@ -1,3 +1,5 @@
+const utils = require('/utils/index')
+const i18nFileName = utils.getI18nSync()
 //app.js
 App({
   onLaunch: function () {
@@ -15,6 +17,8 @@ App({
       })
     }
 
-    this.globalData = {}
+    this.globalData = {
+      i18n: i18nFileName
+    }
   }
 })

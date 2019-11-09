@@ -1,4 +1,6 @@
-<view>    
-  <showDate></showDate>
+<view>
+  <showDate
+    option="{{option}}"
+    bind:goBackHome="goBackHome">
+  </showDate>
 </view>
-  

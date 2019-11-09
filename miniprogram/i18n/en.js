@@ -21,7 +21,64 @@ const LanguageMap = {
     4: 'Thursday',
     5: 'Friday',
     6: 'Saturday',
-  }
+  },
+  // 分类 TODO: 用户自定义
+  EXPEND_CATEGORY_LIST: [
+    {
+      key: 'Book',
+      value: 'Book'
+    },
+    {
+      key: 'Clothes',
+      value: 'Clothes'
+    },
+    {
+      key: 'Communications',
+      value: 'Communications'
+    },
+    {
+      key: 'Entertainment',
+      value: 'Entertainment'
+    },
+    {
+      key: 'Financial',
+      value: 'Financial'
+    },
+    {
+      key: 'Food',
+      value: 'Food'
+    },
+    {
+      key: 'Game',
+      value: 'Game'
+    },
+    {
+      key: 'Gifts',
+      value: 'Gifts'
+    },
+    {
+      key: 'Home',
+      value: 'Home'
+    },
+    {
+      key: 'Sports',
+      value: 'Sports'
+    },
+    {
+      key: 'Transport',
+      value: 'Transport'
+    },
+  ],
+  INCOME_CATEGORY_LIST: [
+    {
+      key: 'Wage',
+      value: 'Wage'
+    },
+    {
+      key: 'Game',
+      value: 'Game'
+    },
+  ]
 }
 
 module.exports = LanguageMap

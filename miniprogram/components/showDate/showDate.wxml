@@ -1,4 +1,38 @@
-<view>
-  {{dataText}}
+<view class="show-data">
+  <view class="show-time">
+    <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+      <view class="picker">
+        {{dataText}}
+      </view>
+    </picker>
+  </view>
+  <view class="input-box">
+    <input 
+      class="input-money" 
+      auto-focus 
+      type="number" 
+      placeholder-class='input-placeholder'
+      bindinput="setMoney"
+      placeholder="金额" />
+  </view>
+  <view class="input-remark">
+    <input 
+      class="input-money"
+      placeholder-class='input-placeholder'
+      bindinput="setRemark"
+      placeholder="备注" />
+  </view>
+  <view class="category-list" bindtap="selectCateGory">
+    <view
+      class="category-item"
+      wx:for="{{categoryList}}"
+      wx:key="item.key"
+      data-key="{{item.key}}"
+      >
+      {{item.value}}
+    </view>
+  </view>
+  
+    
 </view>
   

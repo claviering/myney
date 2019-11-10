@@ -4,6 +4,8 @@ cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
 const db = cloud.database()
+const _ = db.command
+
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -24,6 +26,13 @@ exports.main = async (event, context) => {
 const ACTIONC_MAP = {
   add: async function (params, context) {
     let result = await db.collection(CONFIG.collection).add({data: params})
+    return result
+  },
+  get: async function (params, context) {
+    let {from, to} = params
+    let result = await db.collection(CONFIG.collection).where({
+      date: _.gte(new Date(from)).and(_.lte(new Date(to)))
+    }).get()
     return result
   }
 }

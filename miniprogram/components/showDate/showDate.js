@@ -58,7 +58,7 @@ Component({
         category,
         money: this.data.money,
         remark: this.data.remark || '',
-        date: timer.dateToTime(this.data.date),
+        date: new Date(timer.dateToTime(this.data.date)), // 保存为 Date 对象 才可以用于进行日期比较
         operCode: this.properties.option,
       }
       console.log('params', params);

@@ -10,6 +10,21 @@ Page({
     })
   },
   onLoad: function() {
+    this.get()
+  },
+  get: async function (params) {
+    let res = await wx.cloud.callFunction({
+      name: 'openapi',
+      data: {
+        action: 'get',
+        params: {
+          from: '2019-11-10: 00:00:00',
+          to: '2019-11-10: 23:59:59',
+        }
+      }
+    })
+    console.log('get res', res);
+    this.triggerEvent('goBackHome')
   },
 
   // 上传图片

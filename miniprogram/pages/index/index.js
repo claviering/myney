@@ -2,13 +2,13 @@ const app = getApp()
 
 Page({
   data: {
-    avatarUrl: './user-unlogin.png',
-    userInfo: {},
-    logged: false,
-    takeSession: false,
-    requestResult: ''
+    showLeftMenu: false,
   },
-
+  toggleLeftMenu: function () {
+    this.setData({
+      showLeftMenu: !this.data.showLeftMenu
+    })
+  },
   onLoad: function() {
   },
 

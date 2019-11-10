@@ -1,0 +1,7 @@
+<view class="components-header">
+  <view
+    bindtap="openMenu"
+    class="icon icon-options {{isOpenMenu ? '' : 'rotate'}}" />
+  <view class="icon icon-settings" />
+</view>
+  

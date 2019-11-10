@@ -1,0 +1,1 @@
+.components-header{display:flex;justify-content:space-between}.components-header .icon{font-size:7vw;transition:.5s}.components-header .rotate{transform:rotate(-90deg)}

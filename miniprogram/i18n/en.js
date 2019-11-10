@@ -78,7 +78,25 @@ const LanguageMap = {
       key: 'Game',
       value: 'Game'
     },
-  ]
+  ],
+  TIME_RANGE: [
+    {
+      key: 'day',
+      value: 'Day'
+    },
+    {
+      key: 'week',
+      value: 'Week'
+    },
+    {
+      key: ' month',
+      value: 'Month'
+    },
+    {
+      key: 'year',
+      value: 'Year'
+    },
+  ],
 }
 
 module.exports = LanguageMap

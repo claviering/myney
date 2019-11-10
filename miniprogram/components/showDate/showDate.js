@@ -26,30 +26,20 @@ Component({
     categoryList: []
   },
   methods: {
-    goBackHome: function (params) {
-    },
-    add: function (data) {
-      db.collection(config.collection).add({
-        data: data,
-        success: res => {
-          wx.showToast({
-            title: '新增记录成功',
-          })
-          console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
-          this.triggerEvent('goBackHome')
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '新增失败'
-          })
-          console.error('[数据库] [新增记录] 失败：', err)
-          this.triggerEvent('goBackHome')
+    add: async function (params) {
+      let res = await wx.cloud.callFunction({
+        name: 'openapi',
+        data: {
+          action: 'add',
+          params
         }
       })
+      console.log('add res', res);
+      this.triggerEvent('goBackHome')
     },
     bindDateChange: function(e) {
       console.log('picker发送选择改变，携带值为', e.detail.value)
+      this.showTime(e.detail.value)
       this.setData({
         date: e.detail.value
       })
@@ -69,14 +59,13 @@ Component({
         money: this.data.money,
         remark: this.data.remark || '',
         date: timer.dateToTime(this.data.date),
-        openid: app.globalData.openid,
         operCode: this.properties.option,
       }
       console.log('params', params);
       this.add(params)
     },
-    showTime: function () {
-      let date = new Date()
+    showTime: function (selectDate) {
+      let date = selectDate ? new Date(selectDate) :  new Date()
       let week = date.getDay();
       let month = date.getMonth();
       let day = date.getDate();

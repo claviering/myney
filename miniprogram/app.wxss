@@ -1,4 +1,4 @@
-/**app.wxss**/
+@import "public/style.wxss";
 .container {
   display: flex;
   flex-direction: column;

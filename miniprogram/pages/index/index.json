@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "footer": "/components/footer/footer"
+    "footer": "/components/footer/footer",
+    "header": "/components/header/header",
+    "leftMenu": "/components/leftMenu/leftMenu"
   }
 }

@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'myney';
+  src:  url('/public/fonts/myney.eot?lifn4g');
+  src:  url('/public/fonts/myney.eot?lifn4g#iefix') format('embedded-opentype'),
+    url('/public/fonts/myney.ttf?lifn4g') format('truetype'),
+    url('/public/fonts/myney.woff?lifn4g') format('woff'),
+    url('/public/fonts/myney.svg?lifn4g#myney') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.icon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'myney' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-settings:before {
+  content: "\e900";
+}
+.icon-options:before {
+  content: "\e901";
+}

@@ -1,0 +1,8 @@
+<view class="components-left-menu">
+  <view class="time-menu">
+    <view wx:for="{{timeRange}}" wx:key="item.key" class="time-menu-item">
+      {{item.value}}
+    </view>
+  </view>
+</view>
+  

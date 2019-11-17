@@ -4,9 +4,7 @@ const {
   EXPEND_CATEGORY_LIST,
   INCOME_CATEGORY_LIST,
 } = require('./../../constant/index.js');
-const config = require('./../../config/index.js');
 const timer = require('./../../utils/time.js');
-const db = wx.cloud.database()
 const app = getApp()
 const i18nFileName = app.globalData.i18n
 const CATEGORY_TYPE = {
@@ -87,7 +85,6 @@ Component({
     },
   },
   attached() {
-    console.log('CATEGORY_TYPE', CATEGORY_TYPE);
     this.showTime()
   },
   ready() {

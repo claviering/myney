@@ -89,7 +89,7 @@ const LanguageMap = {
       value: '周'
     },
     {
-      key: ' month',
+      key: 'month',
       value: '月'
     },
     {

@@ -1,12 +1,12 @@
 <!--index.wxml-->
 <view class="container">
   <view class="header">
-    <header bind:toggleLeftMenu="toggleLeftMenu"></header>
+    <header bind:toggleLeftMenu="toggleLeftMenu" />
   </view>
   <view class="footer">
-    <footer></footer>
+    <footer />
   </view>
   <view class="left-menu {{showLeftMenu ? 'showLeftMenu' : 'hiddenLeftMenu'}}">
-    <leftMenu></leftMenu>
+    <leftMenu bind:selectTime="selectTime" />
   </view>
 </view>

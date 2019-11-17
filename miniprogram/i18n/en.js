@@ -89,7 +89,7 @@ const LanguageMap = {
       value: 'Week'
     },
     {
-      key: ' month',
+      key: 'month',
       value: 'Month'
     },
     {

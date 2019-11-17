@@ -1,3 +1,4 @@
+const timer = require('./../../utils/time.js');
 const app = getApp()
 
 Page({
@@ -12,19 +13,32 @@ Page({
   onLoad: function() {
     this.get()
   },
-  get: async function (params) {
+  get: async function (from, to) {
     let res = await wx.cloud.callFunction({
       name: 'openapi',
       data: {
         action: 'get',
         params: {
-          from: '2019-11-10: 00:00:00',
-          to: '2019-11-10: 23:59:59',
+          from: timer.formatTime(from) + ' 00:00:00',
+          to: timer.formatTime(to) + ' 23:59:59'
         }
       }
     })
     console.log('get res', res);
     this.triggerEvent('goBackHome')
+  },
+  selectTime: function (myEventDetail) {
+    this.toggleLeftMenu()
+    let timeKey = myEventDetail.detail
+    console.log('timeKey', timeKey);
+    let timeMap = {
+      day: [new Date, new Date],
+      week: timer.getWeekTime(),
+      month: timer.getMonthTime(),
+      year: timer.getYearTime(),
+    }
+    let [from, to] = timeMap[timeKey]
+    this.get(from, to)
   },
 
   // 上传图片

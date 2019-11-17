@@ -1,6 +1,12 @@
 <view class="components-left-menu">
-  <view class="time-menu">
-    <view wx:for="{{timeRange}}" wx:key="item.key" class="time-menu-item">
+  <view
+    bindtap="selectTime"
+    class="time-menu">
+    <view
+      wx:for="{{timeRange}}"
+      data-key="{{item.key}}"
+      wx:key="item.key"
+      class="time-menu-item {{item.active ? 'active' : ''}}">
       {{item.value}}
     </view>
   </view>

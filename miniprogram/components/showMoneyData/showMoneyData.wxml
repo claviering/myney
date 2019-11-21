@@ -1,0 +1,21 @@
+<view class="components-show-money-data">
+  <view
+    wx:for="{{dataList}}"
+    wx:key="item._id"
+    class="money-item"
+  >
+    <view class="category">
+      {{item.category}}
+    </view>
+    <view class="money {{item.operCode === 'negative' ? 'negative' : 'positive'}}">
+      {{item.money}}
+    </view>
+    <view class="date">
+      {{item.dateText}}
+    </view>
+    <view class="remark">
+      {{item.remark}}
+    </view>
+  </view>
+</view>
+  

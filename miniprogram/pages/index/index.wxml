@@ -3,6 +3,11 @@
   <view class="header">
     <header bind:toggleLeftMenu="toggleLeftMenu" />
   </view>
+  <view class="show-money">
+    <showMoneyData
+      dataList="{{dataList}}"
+    />
+  </view>
   <view class="footer">
     <footer />
   </view>

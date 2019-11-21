@@ -4,6 +4,7 @@ const app = getApp()
 Page({
   data: {
     showLeftMenu: false,
+    dataList: []
   },
   toggleLeftMenu: function () {
     this.setData({
@@ -25,12 +26,15 @@ Page({
       }
     })
     console.log('get res', res);
-    this.triggerEvent('goBackHome')
+    if (res && res.result && res.result.data && res.result.data.length) {
+      this.setData({
+        dataList: res.result.data
+      })
+    }
   },
   selectTime: function (myEventDetail) {
     this.toggleLeftMenu()
     let timeKey = myEventDetail.detail
-    console.log('timeKey', timeKey);
     let timeMap = {
       day: [new Date, new Date],
       week: timer.getWeekTime(),

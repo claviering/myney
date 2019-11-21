@@ -5,7 +5,7 @@ module.exports = {
    */
   dateToTime: function (date) {
     let curDate = date || this.formatTime()
-    return curDate + ' ' + this.getTime()
+    return curDate + ' ' + this.getTime(date)
   },
   /**
    * 格式化日期为 YYYY-MM-DD
@@ -25,8 +25,8 @@ module.exports = {
   /**
    * 获取 HH:mm:ss
    */
-  getTime: function () {
-    let date = new Date();
+  getTime: function (date) {
+    date = date ? new Date(date) : new Date();
     let hours = date.getHours()
     let minutes = date.getMinutes()
     let seconds = date.getSeconds();

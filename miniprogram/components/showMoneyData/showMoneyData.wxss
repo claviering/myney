@@ -1,0 +1,1 @@
+.components-show-money-data{width:80vw;padding:0vw 10vw}.components-show-money-data .money-item{display:flex;justify-content:space-between;align-items:center}.components-show-money-data .money-item .negative{color:#f2317f}.components-show-money-data .money-item .positive{color:#00c07f}

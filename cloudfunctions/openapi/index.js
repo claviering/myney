@@ -1,5 +1,6 @@
 const cloud = require('wx-server-sdk')
 const CONFIG = require('config.json')
+const UTILS = require('utils.js')
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
@@ -33,6 +34,12 @@ const ACTIONC_MAP = {
     let result = await db.collection(CONFIG.collection).where({
       date: _.gte(new Date(from)).and(_.lte(new Date(to)))
     }).get()
+    if (result && result.data && result.data.length) {
+      result.data.forEach(item => {
+        item.dateText = UTILS.timer(item.date)
+        return item
+      })
+    }
     return result
   }
 }

@@ -2,6 +2,7 @@
   "usingComponents": {
     "footer": "/components/footer/footer",
     "header": "/components/header/header",
-    "leftMenu": "/components/leftMenu/leftMenu"
+    "leftMenu": "/components/leftMenu/leftMenu",
+    "showMoneyData": "/components/showMoneyData/showMoneyData"
   }
 }

@@ -3,10 +3,17 @@
 .components-show-money-data{
   width: 80vw;
   padding: 0vw 10vw;
+  margin-top: 10px;
   .money-item{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 24vw 1fr;
+    margin-bottom: 5px;
+    .money{
+      text-align: center;
+    }
+    .remark{
+      text-align: right;
+    }
     .negative{
       color: @negativeColor;
     }

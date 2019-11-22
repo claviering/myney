@@ -7,7 +7,7 @@
     <view class="category">
       {{item.category}}
     </view>
-    <view class="money {{item.operCode === 'negative' ? 'negative' : 'positive'}}">
+    <view class="money {{item.money < 0 ? 'negative' : 'positive'}}">
       {{item.money}}
     </view>
     <view class="date">

@@ -4,13 +4,13 @@ module.exports = {
    * @param {String} date 日期 YYYY-MM-DD
    */
   timer: function (date) {
-    return this.formatTime(date) + ' ' + this.getTime(date)
+    return this.formatDate(date) + ' ' + this.formatTime(date)
   },
   /**
    * 格式化日期为 YYYY-MM-DD
    * @param {Date} date 日期
    */
-  formatTime: function (date) {
+  formatDate: function (date) {
     let d = date ? new Date(date) : new Date()
     let month = '' + (d.getMonth() + 1)
     let day = '' + d.getDate()
@@ -24,7 +24,7 @@ module.exports = {
   /**
    * 获取 HH:mm:ss
    */
-  getTime: function (date) {
+  formatTime: function (date) {
     date = date ? new Date(date) : new Date();
     let hours = date.getHours()
     let minutes = date.getMinutes()

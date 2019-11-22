@@ -36,7 +36,7 @@ const ACTIONC_MAP = {
     }).get()
     if (result && result.data && result.data.length) {
       result.data.forEach(item => {
-        item.dateText = UTILS.timer(item.date)
+        item.dateText = UTILS.formatDate(item.date)
         return item
       })
     }

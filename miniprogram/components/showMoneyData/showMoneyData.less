@@ -1,24 +1,59 @@
 @import "../../global.less";
 
+.border{
+  border: 1px solid #d9ecff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  background-color: #ecf5ff;
+}
+
+.hidden-text{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .components-show-money-data{
   width: 80vw;
+  height: 70vh;
   padding: 0vw 10vw;
   margin-top: 10px;
   .money-item{
-    display: grid;
-    grid-template-columns: 1fr 1fr 24vw 1fr;
-    margin-bottom: 5px;
-    .money{
-      text-align: center;
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    padding: 0px 2vw;
+    .border();
+    view{
+      .hidden-text();
     }
-    .remark{
-      text-align: right;
+    .category{
+      margin-bottom: 10px;
     }
-    .negative{
-      color: @negativeColor;
-    }
-    .positive{
-      color: @positiveColor;
+    .money-detail{
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      width: 76vw;
+      height: 3vh;
+      .money{
+        text-align: center;
+      }
+      .remark{
+        text-align: center;
+        max-width: 24vw;
+      }
+      .date{
+        width: max-content;
+      }
+      .negative{
+        color: @negativeColor;
+      }
+      .positive{
+        color: @positiveColor;
+      }
     }
   }
 }

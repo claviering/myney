@@ -1,17 +1,17 @@
 module.exports = {
   /**
-   * YYYY-MM-DD 转 YYYY-MM-DD HH:mm:ss
+   * 时间转 YYYY-MM-DD HH:mm:ss
    * @param {String} date 日期 YYYY-MM-DD
    */
-  dateToTime: function (date) {
-    let curDate = date || this.formatTime()
-    return curDate + ' ' + this.getTime(date)
+  time: function (date) {
+    let curDate = this.formatDate(date)
+    return curDate + ' ' + this.formatTime(date)
   },
   /**
    * 格式化日期为 YYYY-MM-DD
    * @param {Date} date 日期
    */
-  formatTime: function (date) {
+  formatDate: function (date) {
     let d = date ? new Date(date) : new Date()
     let month = '' + (d.getMonth() + 1)
     let day = '' + d.getDate()
@@ -25,7 +25,7 @@ module.exports = {
   /**
    * 获取 HH:mm:ss
    */
-  getTime: function (date) {
+  formatTime: function (date) {
     date = date ? new Date(date) : new Date();
     let hours = date.getHours()
     let minutes = date.getMinutes()

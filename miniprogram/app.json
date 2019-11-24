@@ -5,10 +5,10 @@
     "pages/updateMoney/updateMoney"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
+    "backgroundColor": "#FFFFFF",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "Good Time",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json"

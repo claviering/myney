@@ -97,6 +97,10 @@ const LanguageMap = {
       value: '年'
     },
   ],
+  OPERATE: {
+    delete: '删除',
+    edit: '编辑',
+  },
 }
 
 module.exports = LanguageMap

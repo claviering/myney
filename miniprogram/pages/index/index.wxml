@@ -5,13 +5,13 @@
   </view>
   <view class="show-money">
     <showMoneyData
-      dataList="{{dataList}}"
+      dataObject="{{dataObject}}"
     />
   </view>
   <view class="footer">
     <footer />
   </view>
-  <view class="left-menu {{showLeftMenu ? 'showLeftMenu' : 'hiddenLeftMenu'}}">
+  <view class="left-menu {{showLeftMenu ? 'show-left-menu' : 'hidden-left-menu'}}">
     <leftMenu bind:selectTime="selectTime" />
   </view>
 </view>

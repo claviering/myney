@@ -1,21 +1,32 @@
-<view class="components-show-money-data">
+<area class="components-show-money-data">
   <view
-    wx:for="{{dataList}}"
-    wx:key="item._id"
+    wx:for="{{dataObject}}"
+    wx:for-index="key"
+    wx:for-item="value"
+    wx:key="key"
     class="money-item"
   >
     <view class="category">
-      {{item.category}}
+      {{key}}
     </view>
-    <view class="money {{item.money < 0 ? 'negative' : 'positive'}}">
-      {{item.money}}
-    </view>
-    <view class="date">
-      {{item.dateText}}
-    </view>
-    <view class="remark">
-      {{item.remark}}
+    <view
+      class="money-detail"
+      wx:for="{{value}}"
+      data-id="{{item._id}}"
+      data-category="{{item.category}}"
+      bindtap="tapMoneyDetail"
+      wx:key="item._id">
+      <view 
+        class="money {{item.money < 0 ? 'negative' : 'positive'}}">
+        {{item.money}}
+      </view>
+      <view class="remark">
+        {{item.remark}}
+      </view>
+      <view class="date">
+        {{item.dateText}}
+      </view>
     </view>
   </view>
-</view>
+</area>
   

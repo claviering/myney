@@ -3,6 +3,7 @@ const {
   MONTH,
   EXPEND_CATEGORY_LIST,
   INCOME_CATEGORY_LIST,
+  OPERATE,
 } = require('./../../constant/index.js');
 const timer = require('./../../utils/time.js');
 const app = getApp()
@@ -14,14 +15,17 @@ const CATEGORY_TYPE = {
 
 Component({
   properties: {
-    option: String,
+    option: Object,
   },
   data: {
     dataText: '',
     money: '',
     remark: '',
     date: '',
-    categoryList: []
+    operCode: '',
+    _id: '',
+    categoryList: [],
+    deleteText: '',
   },
   methods: {
     /**
@@ -33,7 +37,21 @@ Component({
         name: 'openapi',
         data: {
           action: 'add',
-          params
+          params: params
+        }
+      })
+      this.triggerEvent('goBackHome')
+    },
+    /**
+     * 跟新数据
+     * @param {Object} params  保存到数据库的参数
+     */
+    update: async function (params) {
+      let res = await wx.cloud.callFunction({
+        name: 'openapi',
+        data: {
+          action: 'update',
+          params: params
         }
       })
       this.triggerEvent('goBackHome')
@@ -43,11 +61,23 @@ Component({
      * @param {event} e 点击时间事件
      */
     bindDateChange: function(e) {
-      console.log('picker发送选择改变，携带值为', e.detail.value)
       this.showTime(e.detail.value)
       this.setData({
         date: e.detail.value
       })
+    },
+    remove: async function () {
+      let params = {
+        _id: this.data._id
+      }
+      let res = await wx.cloud.callFunction({
+        name: 'openapi',
+        data: {
+          action: 'remove',
+          params: params
+        }
+      })
+      this.triggerEvent('goBackHome')
     },
     /**
      * 用户选择分类，然后请求接口保存到数据库
@@ -57,18 +87,22 @@ Component({
       if (!e || !e.target || !e.target.dataset || !e.target.dataset.key) {
         return;
       }
-      let category = e.target.dataset.key
-      if (!this.data.money) {
-        return
-      }
+      console.log('timer.time(this.data.date)', timer.time(this.data.date));
+      let category = e.target.dataset.key;
+      if (!this.data.money || !this.data.date) return;
       let params = {
         category,
-        money: this.formatMoney(this.data.money),
+        money: this.formatMoney(this.data.money, this.data.operCode),
         remark: this.data.remark || '',
-        date: new Date(timer.dateToTime(this.data.date)), // 保存为 Date 对象 才可以用于进行日期比较
-        // operCode: this.properties.option,
+        date: timer.time(this.data.date), // 保存为 Date 对象 才可以用于进行日期比较
       }
-      this.add(params)
+      let _id = this.data._id
+      if (_id) {
+        params._id = _id;
+        this.update(params);
+      } else {
+        this.add(params);
+      }
     },
     /**
      * 根据 operCode 格式化金钱的正负数
@@ -78,10 +112,10 @@ Component({
     formatMoney: function(money, operCode) {
       switch (operCode) {
         case 'negative':
-          money = Number.parseFloat(money)
+            money = Number.parseFloat('-' + money)
           break;
-        case 'positive':
-          money = Number.parseFloat('-' + money)
+          case 'positive':
+            money = Number.parseFloat(money)
           break;
         default:
           money = Number.parseFloat(money)
@@ -127,9 +161,17 @@ Component({
     this.showTime()
   },
   ready() {
+    if (!this.properties.option) return;
+    this.showTime(this.properties.option.date);
     // 设置分类类别
     this.setData({
-      categoryList: CATEGORY_TYPE[this.properties.option]
+      categoryList: CATEGORY_TYPE[this.properties.option.operCode],
+      money: Math.abs(this.properties.option.money),
+      remark: this.properties.option.remark,
+      date: this.properties.option.date || new Date(),
+      _id: this.properties.option._id,
+      operCode: this.properties.option.operCode,
+      deleteText: OPERATE.delete
     })
   }
 })

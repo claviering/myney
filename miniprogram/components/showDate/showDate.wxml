@@ -9,14 +9,16 @@
   <view class="input-box">
     <input 
       class="input-money" 
-      auto-focus 
+      focus
+      value="{{money}}"
       type="number" 
       placeholder-class='input-placeholder'
       bindinput="setMoney"
       placeholder="金额" />
   </view>
   <view class="input-remark">
-    <input 
+    <input
+      value="{{remark}}"
       class="input-money"
       placeholder-class='input-placeholder'
       bindinput="setRemark"
@@ -32,7 +34,10 @@
       {{item.value}}
     </view>
   </view>
-  
+  <view class="delete">
+    <button bindtap="remove">{{deleteText}}</button>
+  </view>
+    
     
 </view>
   

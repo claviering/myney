@@ -39,7 +39,7 @@ module.exports = {
       }
     })
   },
-  onGetOpenid: function(app) {
+  onGetOpenid: function (app) {
     // 调用云函数
     wx.cloud.callFunction({
       name: 'login',
@@ -53,4 +53,27 @@ module.exports = {
       }
     })
   },
+  /**
+   * 根据 key 给数据对象分类
+   * @param {Arrya} dataList 数组对象
+   * @param {String} key 获取数据的 key
+   * @param {String} value 获取这个值的数据
+   * @return {Object}
+   */
+  get: function (dataList, key, value) {
+    if (!dataList || !dataList.length || !Array.isArray(dataList) || typeof key !== 'string') {
+      throw '参数错误';
+    }
+    let dataMap = {};
+    dataList.forEach(item => {
+      let mapValue = item[key];
+      dataMap[mapValue] = item;
+    });
+    return dataMap[value];
+  },
+  /**
+   * JS 对象转 url 查询字符串
+   * @param {Object} obj 
+   */
+  objectToQueryString: (obj) => Object.keys(obj).map((key) => `${key}=${obj[key]}`).join('&'),
 }

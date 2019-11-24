@@ -7,17 +7,18 @@ Component({
   },
   properties: {},
   data: {
-    timeRange: TIME_RANGE
+    timeRange: TIME_RANGE,
+    timeKey: '',
   },
   methods: {
     selectTime: function (event) {
       let timeKey = event.target.dataset.key
-      console.log('timeKey', timeKey);
       this.data.timeRange.forEach(item => {
         item.active = item.key ===  timeKey;
       })
       this.setData({
-        timeRange: this.data.timeRange
+        timeRange: this.data.timeRange,
+        timeKey
       })
       this.triggerEvent('selectTime', timeKey)
     }
@@ -25,11 +26,10 @@ Component({
   ready() {
   },
   attached() {
-    TIME_RANGE[0].active = true
+    TIME_RANGE[0].active = this.data.timeKey ? true : false;
     let timeRange = TIME_RANGE
     this.setData({
       timeRange
     })
-    console.log('this.data', this.data);
   },
 })

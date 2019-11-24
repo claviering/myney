@@ -1,6 +1,6 @@
 Page({
   data: {
-    option: '',
+    option: {},
   },
   goBackHome: function () {
     wx.navigateTo({
@@ -8,7 +8,6 @@ Page({
     });
   },
   onLoad: function(option) {
-    console.log('option', option)
-    this.setData(option);
+    this.setData({option});
   }
 })

@@ -4,7 +4,8 @@ const app = getApp()
 Page({
   data: {
     showLeftMenu: false,
-    dataList: []
+    dataObject: {},
+    timeType: ''
   },
   toggleLeftMenu: function () {
     this.setData({
@@ -14,35 +15,38 @@ Page({
   onLoad: function() {
     this.get()
   },
-  get: async function (from, to) {
+  get: async function (from, to, timeType) {
     let res = await wx.cloud.callFunction({
       name: 'openapi',
       data: {
         action: 'get',
         params: {
-          from: timer.formatTime(from) + ' 00:00:00',
-          to: timer.formatTime(to) + ' 23:59:59'
+          timeType,
+          from: timer.formatDate(from) + ' 00:00:00',
+          to: timer.formatDate(to) + ' 23:59:59'
         }
       }
     })
-    console.log('get res', res);
-    if (res && res.result && res.result.data && res.result.data.length) {
+    if (res && res.result && res.result.data) {
       this.setData({
-        dataList: res.result.data
+        dataObject: res.result.data
       })
     }
   },
   selectTime: function (myEventDetail) {
     this.toggleLeftMenu()
-    let timeKey = myEventDetail.detail
+    let timeType = myEventDetail.detail
+    // 相同时间范围直接返回
+    if (timeType === this.data.timeType) return
     let timeMap = {
       day: [new Date, new Date],
       week: timer.getWeekTime(),
       month: timer.getMonthTime(),
       year: timer.getYearTime(),
     }
-    let [from, to] = timeMap[timeKey]
-    this.get(from, to)
+    let [from, to] = timeMap[timeType]
+    this.get(from, to, timeType)
+    this.setData({timeType})
   },
 
   // 上传图片

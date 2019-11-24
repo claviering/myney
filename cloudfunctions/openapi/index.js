@@ -10,38 +10,71 @@ const _ = db.command
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  console.log('event', event)
-  console.log('context', context)
-
   const { OPENID } = cloud.getWXContext()
   event.params._openid = OPENID // 给全部参数插入 _openid
   const action = event.action
   if (ACTIONC_MAP[action]) {
-    let res = await ACTIONC_MAP[action](event.params, context)
-    return res
+    try {
+      let res = await ACTIONC_MAP[action](event.params, context)
+      return res
+    } catch (error) {
+      return {
+        error,
+        message: '请求错误， 触发异常'
+      }
+    }
   } else {
     return false
   }
 }
 
 const ACTIONC_MAP = {
-  add: async function (params, context) {
-    let result = await db.collection(CONFIG.collection).add({data: params})
+  /**
+   * 添加一条数据
+   * @param {Object} data 
+   * @param {*} context 
+   */
+  add: async function (data, context) {
+    data.date = new Date(data.date);
+    let result = await db.collection(CONFIG.collection).add({data: data})
     return result
   },
+  /**
+   * 查询数据
+   * @param {Object} params 
+   * @param {*} context 
+   */
   get: async function (params, context) {
-    let {from, to} = params
+    let {from, to, timeType} = params
     let result = await db.collection(CONFIG.collection).where({
       date: _.gte(new Date(from)).and(_.lte(new Date(to)))
     }).get()
-    if (result && result.data && result.data.length) {
-      result.data.forEach(item => {
-        item.dateText = UTILS.formatDate(item.date)
-        return item
-      })
+    if (!result || !result.data || !result.data.length) {
+      return result;
     }
-    return result
-  }
+    result.data.forEach(item => {
+      item.dateText = timeType === 'year' ? UTILS.formatDate(item.date) : UTILS.formatMonthDay(item.date);
+      return item;
+    })
+    result.data = UTILS.groupBy(result.data, 'category');
+    return result;
+  },
+  /**
+   * 更新数据
+   * @param {Object} data
+   */
+  update: async function (data) {
+    data.date = new Date(data.date);
+    let _id = data._id;
+    delete data._id;
+    let result = await db.collection(CONFIG.collection).doc(_id).update({data: data});
+    return result;
+  },
+  remove: async function (params) {
+    let {_id} = params;
+    let result = await db.collection(CONFIG.collection).doc(_id).remove();
+    return result;
+  },
 }
 
 // 此处将获取永久有效的小程序码，并将其保存在云文件存储中，最后返回云文件 ID 给前端使用

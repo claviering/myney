@@ -3,6 +3,7 @@
     "footer": "/components/footer/footer",
     "header": "/components/header/header",
     "leftMenu": "/components/leftMenu/leftMenu",
+    "right-menu": "/components/rightMenu/rightMenu",
     "showMoneyData": "/components/showMoneyData/showMoneyData"
   }
 }

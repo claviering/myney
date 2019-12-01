@@ -1,3 +1,11 @@
+.open-menu{
+  width: 50vw;
+  height: 100vh;
+  background: white;
+  position: fixed;
+  transition: 0.5s;
+}
+
 .container{
   height: 100vh;
   .show-left-menu{
@@ -6,13 +14,19 @@
   .hidden-left-menu{
     transform: translateX(-50vw);
   }
+  .show-right-menu{
+    transform: none;
+  }
+  .hidden-right-menu{
+    transform: translateX(50vw);
+  }
   .left-menu{
-    width: 50vw;
-    height: 100vh;
-    background: white;
-    position: fixed;
+    .open-menu();
     left: 0px;
-    transition: 0.5s;
+  }
+  .right-menu{
+    .open-menu();
+    right: 0px;
   }
   .header{
     width: 80vw;

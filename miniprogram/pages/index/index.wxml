@@ -1,7 +1,9 @@
 <!--index.wxml-->
 <view class="container">
   <view class="header">
-    <header bind:toggleLeftMenu="toggleLeftMenu" />
+    <header
+    bind:toggleRightMenu="toggleRightMenu"
+    bind:toggleLeftMenu="toggleLeftMenu" />
   </view>
   <view class="show-money">
     <showMoneyData
@@ -13,5 +15,8 @@
   </view>
   <view class="left-menu {{showLeftMenu ? 'show-left-menu' : 'hidden-left-menu'}}">
     <leftMenu bind:selectTime="selectTime" />
+  </view>
+  <view class="right-menu {{showRightMenu ? 'show-right-menu' : 'hidden-right-menu'}}">
+    <right-menu />
   </view>
 </view>

@@ -4,12 +4,18 @@ const app = getApp()
 Page({
   data: {
     showLeftMenu: false,
+    showRightMenu: false,
     dataObject: {},
     timeType: ''
   },
   toggleLeftMenu: function () {
     this.setData({
       showLeftMenu: !this.data.showLeftMenu
+    })
+  },
+  toggleRightMenu: function () {
+    this.setData({
+      showRightMenu: !this.data.showRightMenu
     })
   },
   onLoad: function() {

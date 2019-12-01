@@ -4,15 +4,22 @@ Component({
   },
   properties: {},
   data: {
-    isOpenMenu: false,
+    isOpenLeftMenu: false,
+    isOpenRightMenu: false,
   },
   methods: {
-    openMenu: function () {
+    openLeftMenu: function () {
       this.setData({
-        isOpenMenu: !this.data.isOpenMenu
+        isOpenLeftMenu: !this.data.isOpenLeftMenu
       })
       this.triggerEvent('toggleLeftMenu')
-    }
+    },
+    openRightMenu: function () {
+      this.setData({
+        isOpenRightMenu: !this.data.isOpenRightMenu
+      })
+      this.triggerEvent('toggleRightMenu')
+    },
   },
   ready() {
     

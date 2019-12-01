@@ -97,6 +97,16 @@ const LanguageMap = {
       value: 'Year'
     },
   ],
+  OPER_LIST: [
+    {
+      key: 'download',
+      value: 'Download'
+    },
+    {
+      key: 'upload',
+      value: 'Upload'
+    },
+  ],
   OPERATE: {
     delete: 'Delete',
     edit: 'Edit',

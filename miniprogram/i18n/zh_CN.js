@@ -97,6 +97,16 @@ const LanguageMap = {
       value: '年'
     },
   ],
+  OPER_LIST: [
+    {
+      key: 'download',
+      value: '导出'
+    },
+    {
+      key: 'upload',
+      value: '导入'
+    },
+  ],
   OPERATE: {
     delete: '删除',
     edit: '编辑',

@@ -70,11 +70,27 @@ const ACTIONC_MAP = {
     let result = await db.collection(CONFIG.collection).doc(_id).update({data: data});
     return result;
   },
+  /**
+   * 删除数据
+   * @param {Object} params 
+   */
   remove: async function (params) {
     let {_id} = params;
     let result = await db.collection(CONFIG.collection).doc(_id).remove();
     return result;
   },
+  /**
+   * 获取小程序全局唯一后台接口调用凭据（access_token）
+   */
+  getAccessToken: async function () {
+    const {APPID} = cloud.getWXContext()
+    const accessToken = await auth.getAccessToken({
+      grant_type: 'client_credential',
+      appid: APPID,
+      secret: CONFIG.secret,
+    })
+    return accessToken;
+  }
 }
 
 // 此处将获取永久有效的小程序码，并将其保存在云文件存储中，最后返回云文件 ID 给前端使用

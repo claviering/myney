@@ -1,0 +1,14 @@
+<view class="components-right-menu">
+  <view
+    bindtap="selectOper"
+    class="oper-menu">
+    <view
+      wx:for="{{operList}}"
+      data-key="{{item.key}}"
+      wx:key="item.key"
+      class="oper-menu-item">
+      {{item.value}}
+    </view>
+  </view>
+</view>
+  

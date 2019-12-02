@@ -90,7 +90,64 @@ const ACTIONC_MAP = {
       secret: CONFIG.secret,
     })
     return accessToken;
-  }
+  },
+  /**
+   * 1. 数据库导出
+   * @return job_id 导出数据库生成的任务 id
+   */
+  download: async function () {
+    const {ENV} = cloud.getWXContext()
+    let accessToken = await this.getAccessToken();
+    let filePath = getFilePath();
+    let collection = CONFIG.collection;
+    let baseUrl = CONFIG.weixin;
+    let res = await wx.request({
+      url: `${baseUrl}/tcb/databasemigrateexport?access_token=${accessToken}`,
+      data: {
+        access_token: accessToken,
+        env: ENV,
+        file_path: filePath,
+        file_type: CONFIG.file_type, // 1: JSON, 2: CSV
+        query: `db.collection(\'${collection}\').get()`,
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      }
+    })
+    let downloadOnfo = await this.databaseMigrateQueryInfo(res.job_id);
+    return downloadOnfo;
+  },
+  /**
+   * 2. 导出任务 id
+   * @param {Number} jobId 迁移任务ID 
+   * @return 文件导出信息
+   */
+  databaseMigrateQueryInfo: async function (jobId) {
+    const {ENV} = cloud.getWXContext()
+    let accessToken = await this.getAccessToken();
+    let baseUrl = CONFIG.weixin;
+    let res = await wx.request({
+      url: `${baseUrl}/tcb/databasemigrateexport?access_token=${accessToken}`,
+      data: {
+        access_token: accessToken,
+        env: ENV,
+        job_id: jobId,
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/json' // 默认值
+      }
+    })
+    return res;
+  },
+}
+
+function getFilePath() {
+  const { OPENID } = cloud.getWXContext();
+  let curTime = UTILS.timer();
+  let filePath = `${OPENID}/${curTime}`;
+  return filePath;
 }
 
 // 此处将获取永久有效的小程序码，并将其保存在云文件存储中，最后返回云文件 ID 给前端使用

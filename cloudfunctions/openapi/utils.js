@@ -1,6 +1,6 @@
 module.exports = {
   /**
-   * YYYY-MM-DD 转 YYYY-MM-DD HH:mm:ss
+   * 获取 YYYY-MM-DD HH:mm:ss
    * @param {String} date 日期 YYYY-MM-DD
    */
   timer: function (date) {

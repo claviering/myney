@@ -13,6 +13,9 @@ Page({
       showLeftMenu: !this.data.showLeftMenu
     })
   },
+  closeRightMenu: function () {
+    this.toggleRightMenu();
+  },
   toggleRightMenu: function () {
     this.setData({
       showRightMenu: !this.data.showRightMenu

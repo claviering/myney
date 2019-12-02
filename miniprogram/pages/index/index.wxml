@@ -17,6 +17,8 @@
     <leftMenu bind:selectTime="selectTime" />
   </view>
   <view class="right-menu {{showRightMenu ? 'show-right-menu' : 'hidden-right-menu'}}">
-    <right-menu />
+    <right-menu 
+      bind:closeRightMenu="closeRightMenu"
+    />
   </view>
 </view>

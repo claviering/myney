@@ -10,9 +10,25 @@ Component({
     operList: OPER_LIST
   },
   methods: {
-    selectOper: function (event) {
+    selectOper: async function (event) {
       let operKey = event.target.dataset.key
-      console.log('operKey', operKey);
+      let operFunctionMap = {
+        download: this.download,
+        upload: this.upload,
+      }
+      operFunctionMap[operKey]();
+    },
+    download: async function () {
+      let res = await wx.cloud.callFunction({
+        name: 'openapi',
+        data: {
+          action: 'download'
+        }
+      })
+      this.triggerEvent('closeRightMenu')
+    },
+    upload: function () {
+      
     }
   },
   ready() {

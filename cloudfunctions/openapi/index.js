@@ -1,17 +1,21 @@
-const cloud = require('wx-server-sdk')
-const CONFIG = require('config.json')
-const UTILS = require('utils.js')
+const axios = require('axios');
+const UTILS = require('utils.js');
+const cloud = require('wx-server-sdk');
+const CONFIG = require('config.json');
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
-const db = cloud.database()
-const _ = db.command
+const db = cloud.database();
+const _ = db.command;
+const baseUrl = CONFIG.weixin;
 
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const { OPENID } = cloud.getWXContext()
-  event.params._openid = OPENID // 给全部参数插入 _openid
+  const { OPENID } = cloud.getWXContext();
+  if (event.params) {
+    event.params._openid = OPENID // 给全部参数插入 _openid
+  }
   const action = event.action
   if (ACTIONC_MAP[action]) {
     try {
@@ -20,7 +24,7 @@ exports.main = async (event, context) => {
     } catch (error) {
       return {
         error,
-        message: '请求错误， 触发异常'
+        message: '请求错误， 触发异常',
       }
     }
   } else {
@@ -84,12 +88,10 @@ const ACTIONC_MAP = {
    */
   getAccessToken: async function () {
     const {APPID} = cloud.getWXContext()
-    const accessToken = await auth.getAccessToken({
-      grant_type: 'client_credential',
-      appid: APPID,
-      secret: CONFIG.secret,
-    })
-    return accessToken;
+    const APPSECRET = CONFIG.secret;
+    const url = `${baseUrl}/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}`
+    const {data} = await axios.get(url)
+    return data && data.access_token;
   },
   /**
    * 1. 数据库导出
@@ -98,48 +100,40 @@ const ACTIONC_MAP = {
   download: async function () {
     const {ENV} = cloud.getWXContext()
     let accessToken = await this.getAccessToken();
+    if (!accessToken) return false;
     let filePath = getFilePath();
     let collection = CONFIG.collection;
-    let baseUrl = CONFIG.weixin;
-    let res = await wx.request({
-      url: `${baseUrl}/tcb/databasemigrateexport?access_token=${accessToken}`,
-      data: {
-        access_token: accessToken,
-        env: ENV,
-        file_path: filePath,
-        file_type: CONFIG.file_type, // 1: JSON, 2: CSV
-        query: `db.collection(\'${collection}\').get()`,
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/json' // 默认值
-      }
-    })
-    let downloadOnfo = await this.databaseMigrateQueryInfo(res.job_id);
+    let url = `${baseUrl}/tcb/databasemigrateexport?access_token=${accessToken}`;
+    let params = {
+      env: ENV,
+      file_path: filePath,
+      file_type: CONFIG.file_type, // 1: JSON, 2: CSV
+      query: 'db.collection("money").get()',
+    };
+    console.log('1. params', params);
+    let {data} = await axios.post(url, params);
+    console.log('1. data', data);
+    let downloadOnfo = await this.databaseMigrateQueryInfo(data && data.job_id, accessToken);
+    console.log('3. downloadOnfo', downloadOnfo);
     return downloadOnfo;
   },
   /**
    * 2. 导出任务 id
-   * @param {Number} jobId 迁移任务ID 
+   * @param {Number} jobId 迁移任务ID
+   * @param {String} accessToken access_tken
    * @return 文件导出信息
    */
-  databaseMigrateQueryInfo: async function (jobId) {
+  databaseMigrateQueryInfo: async function (jobId, accessToken) {
+    if (!jobId) return false;
     const {ENV} = cloud.getWXContext()
-    let accessToken = await this.getAccessToken();
-    let baseUrl = CONFIG.weixin;
-    let res = await wx.request({
-      url: `${baseUrl}/tcb/databasemigrateexport?access_token=${accessToken}`,
-      data: {
-        access_token: accessToken,
-        env: ENV,
-        job_id: jobId,
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/json' // 默认值
-      }
-    })
-    return res;
+    let url = `${baseUrl}/tcb/databasemigrateexport?access_token=${accessToken}`;
+    let params = {
+      env: ENV,
+      job_id: jobId,
+    };
+    let {data} = await axios(url, params);
+    console.log('2. data', data);
+    return data;
   },
 }
 
@@ -147,7 +141,7 @@ function getFilePath() {
   const { OPENID } = cloud.getWXContext();
   let curTime = UTILS.timer();
   let filePath = `${OPENID}/${curTime}`;
-  return filePath;
+  return 'test_export';
 }
 
 // 此处将获取永久有效的小程序码，并将其保存在云文件存储中，最后返回云文件 ID 给前端使用

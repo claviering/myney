@@ -25,7 +25,7 @@ Component({
           action: 'download'
         }
       })
-      this.triggerEvent('closeRightMenu')
+      // this.triggerEvent('closeRightMenu');
     },
     upload: function () {
       

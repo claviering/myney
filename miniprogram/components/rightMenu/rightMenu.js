@@ -19,12 +19,20 @@ Component({
       operFunctionMap[operKey]();
     },
     download: async function () {
-      let res = await wx.cloud.callFunction({
+      let {result} = await wx.cloud.callFunction({
         name: 'openapi',
         data: {
           action: 'download'
         }
       })
+      if (!result || result.errmsg !== 'ok') {
+        return;
+      }
+      let downloadSetting = {
+        url: result.file_url
+      };
+      let downloadResult = await wx.downloadFile(downloadSetting);
+      console.log('downloadResult', downloadResult);
       // this.triggerEvent('closeRightMenu');
     },
     upload: function () {

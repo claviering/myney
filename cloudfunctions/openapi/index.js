@@ -3,7 +3,7 @@ const UTILS = require('utils.js');
 const cloud = require('wx-server-sdk');
 const CONFIG = require('config.json');
 cloud.init({
-  env: cloud.DYNAMIC_CURRENT_ENV
+  env: cloud.DYNAMIC_CURRENT_ENV,
 })
 const db = cloud.database();
 const _ = db.command;
@@ -108,13 +108,22 @@ const ACTIONC_MAP = {
       env: ENV,
       file_path: filePath,
       file_type: CONFIG.file_type, // 1: JSON, 2: CSV
-      query: 'db.collection("money").get()',
+      query: `db.collection('${collection}').field({category:true,date:true,money:true,remark:true,_id:false}).get()`,
     };
-    console.log('1. params', params);
-    let {data} = await axios.post(url, params);
-    console.log('1. data', data);
-    let downloadOnfo = await this.databaseMigrateQueryInfo(data && data.job_id, accessToken);
-    console.log('3. downloadOnfo', downloadOnfo);
+    let {data} = await axios({
+      url,
+      method: 'post',
+      headers: {'content-type': 'application/json'},
+      params: {access_token: accessToken},
+      data: params,
+    });
+    let downloadOnfo = {
+      errmsg: 'ok',
+      status: 'waiting'
+    };
+    while (downloadOnfo.errmsg === 'ok' &&  downloadOnfo.status !== 'success') {
+      downloadOnfo = await this.databaseMigrateQueryInfo(data && data.job_id, accessToken);
+    }
     return downloadOnfo;
   },
   /**
@@ -126,13 +135,18 @@ const ACTIONC_MAP = {
   databaseMigrateQueryInfo: async function (jobId, accessToken) {
     if (!jobId) return false;
     const {ENV} = cloud.getWXContext()
-    let url = `${baseUrl}/tcb/databasemigrateexport?access_token=${accessToken}`;
+    let url = `${baseUrl}/tcb/databasemigratequeryinfo?access_token=${accessToken}`;
     let params = {
       env: ENV,
       job_id: jobId,
     };
-    let {data} = await axios(url, params);
-    console.log('2. data', data);
+    let {data} = await axios({
+      url,
+      method: 'post',
+      headers: {'content-type': 'application/json'},
+      params: {access_token: accessToken},
+      data: params,
+    });
     return data;
   },
 }

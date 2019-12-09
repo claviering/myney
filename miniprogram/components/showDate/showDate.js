@@ -26,6 +26,7 @@ Component({
     _id: '',
     categoryList: [],
     deleteText: '',
+    displayDelete: ''
   },
   methods: {
     /**
@@ -171,7 +172,8 @@ Component({
       date: this.properties.option.date || new Date(),
       _id: this.properties.option._id,
       operCode: this.properties.option.operCode,
-      deleteText: OPERATE.delete
+      deleteText: OPERATE.delete,
+      displayDelete: this.properties.option._id ? '' : 'none'
     })
   }
 })

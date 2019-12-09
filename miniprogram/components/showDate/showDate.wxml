@@ -34,10 +34,8 @@
       {{item.value}}
     </view>
   </view>
-  <view class="delete">
+  <view class="delete" style="display: {{displayDelete}}">
     <button bindtap="remove">{{deleteText}}</button>
   </view>
-    
-    
 </view>
   

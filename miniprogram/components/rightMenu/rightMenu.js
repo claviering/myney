@@ -7,16 +7,22 @@ Component({
   },
   properties: {},
   data: {
-    operList: OPER_LIST
+    operList: OPER_LIST,
+    pageNumber: 1
   },
   methods: {
     selectOper: async function (event) {
       let operKey = event.target.dataset.key
-      let operFunctionMap = {
-        download: this.download,
-        upload: this.upload,
+      switch (operKey) {
+        case 'download':
+          this.download();
+          break;
+        case 'upload':
+          this.upload();
+          break;
+        default:
+          break;
       }
-      operFunctionMap[operKey]();
     },
     download: async function () {
       let {result} = await wx.cloud.callFunction({
@@ -28,15 +34,27 @@ Component({
       if (!result || result.errmsg !== 'ok') {
         return;
       }
-      let downloadSetting = {
-        url: result.file_url
-      };
-      let downloadResult = await wx.downloadFile(downloadSetting);
-      console.log('downloadResult', downloadResult);
+      let  url = result.file_url;
+      wx.downloadFile({url, success (downloadResult) {
+        console.log('downloadResult', downloadResult);
+      }});
       // this.triggerEvent('closeRightMenu');
     },
-    upload: function () {
-      
+    upload: async function () {
+      let pageNumber = this.data.pageNumber;
+      let {result} = await wx.cloud.callFunction({
+        name: 'openapi',
+        data: {
+          action: 'upload',
+          params: {
+            pageNumber: pageNumber
+          }
+        }
+      });
+      this.setData({
+        pageNumber: pageNumber + 1
+      })
+      console.log('result', result);
     }
   },
   ready() {

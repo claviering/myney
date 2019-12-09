@@ -3,7 +3,7 @@ const UTILS = require('utils.js');
 const cloud = require('wx-server-sdk');
 const CONFIG = require('config.json');
 cloud.init({
-  env: cloud.DYNAMIC_CURRENT_ENV,
+  env: CONFIG.dev_env,
 })
 const db = cloud.database();
 const _ = db.command;
@@ -121,18 +121,33 @@ const ACTIONC_MAP = {
       errmsg: 'ok',
       status: 'waiting'
     };
+    // 不断查询, 知道导出完成
     while (downloadOnfo.errmsg === 'ok' &&  downloadOnfo.status !== 'success') {
-      downloadOnfo = await this.databaseMigrateQueryInfo(data && data.job_id, accessToken);
+      downloadOnfo = await databaseMigrateQueryInfo(data && data.job_id, accessToken);
     }
     return downloadOnfo;
   },
+  upload: async function (params) {
+    // 洗数
+    // let res = await setStringToDate(params);
+    return true;
+  },
+}
+
+function getFilePath() {
+  const { OPENID } = cloud.getWXContext();
+  let curTime = UTILS.timer();
+  let filePath = `${OPENID}/${curTime}`;
+  return filePath;
+}
+
   /**
-   * 2. 导出任务 id
+   * 2. 根据 jobId 查询导出是否完成
    * @param {Number} jobId 迁移任务ID
    * @param {String} accessToken access_tken
    * @return 文件导出信息
    */
-  databaseMigrateQueryInfo: async function (jobId, accessToken) {
+   async function databaseMigrateQueryInfo(jobId, accessToken) {
     if (!jobId) return false;
     const {ENV} = cloud.getWXContext()
     let url = `${baseUrl}/tcb/databasemigratequeryinfo?access_token=${accessToken}`;
@@ -148,15 +163,30 @@ const ACTIONC_MAP = {
       data: params,
     });
     return data;
-  },
-}
+  }
 
-function getFilePath() {
-  const { OPENID } = cloud.getWXContext();
-  let curTime = UTILS.timer();
-  let filePath = `${OPENID}/${curTime}`;
-  return 'test_export';
-}
+  /**
+   * 洗数
+   * 导入数据处理, 把 date 字段的 String 类型转 Date 类型
+   */
+  async function setStringToDate(params) {
+    const MAX_LIMIT = 100;
+    let {pageNumber} = params;
+    console.log('pageNumber', pageNumber);
+    let dataResult = await db.collection(CONFIG.collection).skip(pageNumber * MAX_LIMIT).limit(MAX_LIMIT).get();
+    if (!dataResult || !dataResult.data || !dataResult.data.length) {
+      return false;
+    }
+    for (let index = 0; index < dataResult.data.length; index++) {
+      const element = dataResult.data[index];
+      if (typeof element.date !== 'string') continue;
+      let formatDateString = UTILS.convertDateString(element.date);
+      let res = await db.collection(CONFIG.collection).doc(element._id).update({data: {
+        date: new Date(formatDateString)
+      }});
+    }
+    return true;
+  }
 
 // 此处将获取永久有效的小程序码，并将其保存在云文件存储中，最后返回云文件 ID 给前端使用
 async function getWXACode(event) {

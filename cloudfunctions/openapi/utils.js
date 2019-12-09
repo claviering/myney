@@ -73,4 +73,15 @@ module.exports = {
     });
     return result;
   },
+  /**
+   * DD/MM/YYYY 时间格式转 YYYY/MM/DD
+   * @param {String} dateString 时间 
+   */
+  convertDateString: function (dateString) {
+    if (typeof dateString !== 'string') return dateString;
+    let dataArray = dateString.split('/')
+    let [DD, MM, YYYY] = dataArray;
+    let newDateString = `${YYYY}/${MM}/${DD}`
+    return newDateString;
+  }
 }

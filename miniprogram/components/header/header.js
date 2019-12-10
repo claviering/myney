@@ -2,12 +2,25 @@ Component({
   options: {
     addGlobalClass: true,
   },
-  properties: {},
+  properties: {
+    closeHeadMenuType: String
+  },
   data: {
     isOpenLeftMenu: false,
     isOpenRightMenu: false,
   },
   methods: {
+    closeMenuIcon: function (params) {
+      if (params === 'LEFT') {
+        this.setData({
+          isOpenLeftMenu: false
+        })
+      } else if (params === 'RIGHT') {
+        this.setData({
+          isOpenRightMenu: false
+        })
+      }
+    },
     openLeftMenu: function () {
       this.setData({
         isOpenLeftMenu: !this.data.isOpenLeftMenu
@@ -21,7 +34,4 @@ Component({
       this.triggerEvent('toggleRightMenu')
     },
   },
-  ready() {
-    
-  }
 })

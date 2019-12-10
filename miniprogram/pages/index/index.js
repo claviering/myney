@@ -6,7 +6,7 @@ Page({
     showLeftMenu: false,
     showRightMenu: false,
     dataObject: {},
-    timeType: ''
+    timeType: '',
   },
   toggleLeftMenu: function () {
     this.setData({
@@ -17,6 +17,8 @@ Page({
     this.toggleRightMenu();
   },
   toggleRightMenu: function () {
+    // TODO: 导入导出未开发完成
+    return;
     this.setData({
       showRightMenu: !this.data.showRightMenu
     })
@@ -43,10 +45,11 @@ Page({
     }
   },
   selectTime: function (myEventDetail) {
-    this.toggleLeftMenu()
-    let timeType = myEventDetail.detail
+    this.toggleLeftMenu();
+    this.selectComponent('#header').closeMenuIcon('LEFT');
+    let timeType = myEventDetail.detail;
     // 相同时间范围直接返回
-    if (timeType === this.data.timeType) return
+    if (timeType === this.data.timeType) return;
     let timeMap = {
       day: [new Date, new Date],
       week: timer.getWeekTime(),
@@ -55,7 +58,9 @@ Page({
     }
     let [from, to] = timeMap[timeType]
     this.get(from, to, timeType)
-    this.setData({timeType})
+    this.setData({
+      timeType
+    })
   },
 
   // 上传图片

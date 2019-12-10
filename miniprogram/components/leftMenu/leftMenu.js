@@ -26,7 +26,8 @@ Component({
   ready() {
   },
   attached() {
-    TIME_RANGE[0].active = this.data.timeKey ? true : false;
+    // 高亮第一个时间
+    TIME_RANGE[0].active = this.data.timeKey ? false : true;
     let timeRange = TIME_RANGE
     this.setData({
       timeRange

@@ -20,7 +20,7 @@ module.exports = {
       month = '0' + month
     if (day.length < 2)
       day = '0' + day
-    return [year, month, day].join('-')
+    return [year, month, day].join('/')
   },
   /**
    * 获取 HH:mm:ss

@@ -51,8 +51,9 @@ const ACTIONC_MAP = {
   get: async function (params, context) {
     let {from, to, timeType} = params
     let result = await db.collection(CONFIG.collection).where({
+      _openid: params._openid,
       date: _.gte(new Date(from)).and(_.lte(new Date(to)))
-    }).get()
+    }).field({_openid: false}).get()
     if (!result || !result.data || !result.data.length) {
       return result;
     }
@@ -98,7 +99,7 @@ const ACTIONC_MAP = {
    * @return job_id 导出数据库生成的任务 id
    */
   download: async function () {
-    const {ENV} = cloud.getWXContext()
+    const {ENV, OPENID} = cloud.getWXContext()
     let accessToken = await this.getAccessToken();
     if (!accessToken) return false;
     let filePath = getFilePath();
@@ -108,7 +109,7 @@ const ACTIONC_MAP = {
       env: ENV,
       file_path: filePath,
       file_type: CONFIG.file_type, // 1: JSON, 2: CSV
-      query: `db.collection('${collection}').field({category:true,date:true,money:true,remark:true,_id:false}).get()`,
+      query: `db.collection('${collection}').where({_openid: ${OPENID}}).field({category:true,date:true,money:true,remark:true,_id:false}).get()`,
     };
     let {data} = await axios({
       url,

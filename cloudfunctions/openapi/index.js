@@ -180,7 +180,6 @@ function getFilePath() {
     }
     for (let index = 0; index < dataResult.data.length; index++) {
       const element = dataResult.data[index];
-      if (typeof element.date !== 'string') continue;
       let formatDateString = UTILS.convertDateString(element.date);
       let res = await db.collection(CONFIG.collection).doc(element._id).update({data: {
         date: new Date(formatDateString)

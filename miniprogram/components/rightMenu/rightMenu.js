@@ -8,7 +8,6 @@ Component({
   properties: {},
   data: {
     operList: OPER_LIST,
-    pageNumber: 1
   },
   methods: {
     selectOper: async function (event) {
@@ -40,8 +39,14 @@ Component({
       }});
       // this.triggerEvent('closeRightMenu');
     },
-    upload: async function () {
-      let pageNumber = this.data.pageNumber;
+    upload: function () {
+      this.setStringToDate(1);
+    },
+    /**
+     * 洗数接口, 把 string 类型的日期转 data 类型
+     * @param {Number} pageNumber 页数
+     */
+    setStringToDate: async function (pageNumber) {
       let {result} = await wx.cloud.callFunction({
         name: 'openapi',
         data: {
@@ -51,11 +56,11 @@ Component({
           }
         }
       });
-      this.setData({
-        pageNumber: pageNumber + 1
-      })
       console.log('result', result);
-    }
+      if (result) {
+        this.setStringToDate(pageNumber + 1);
+      }
+    },
   },
   ready() {
   },

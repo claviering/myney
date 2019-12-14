@@ -55,13 +55,37 @@ const ACTIONC_MAP = {
       date: _.gte(new Date(from)).and(_.lte(new Date(to)))
     }).field({_openid: false}).get()
     if (!result || !result.data || !result.data.length) {
+      result.summary = {};
       return result;
     }
     result.data.forEach(item => {
       item.dateText = timeType === 'year' ? UTILS.formatDate(item.date) : UTILS.formatMonthDay(item.date);
+      item.moneyText = item.money && item.money.toLocaleString();
       return item;
     })
+    // 数据分类
     result.data = UTILS.groupBy(result.data, 'category');
+    let summary = {};
+    let totalExpenditure = 0 // 总支出
+    let totalIncome = 0 // 总收入
+    let balance = 0 // 收支平衡
+    for (const [key, value] of Object.entries(result.data)) {
+      if (!value || !value.length) return;
+      value.forEach(item => {
+        let itemMoney = item.money;
+        typeof summary[key] === 'undefined' ? (summary[key] = itemMoney) : (summary[key] += itemMoney);
+        itemMoney > 0 ? (totalIncome += itemMoney) : (totalExpenditure += itemMoney);
+      })
+    }
+    totalExpenditure = totalExpenditure.toFixed(2);
+    totalIncome = totalIncome.toFixed(2);
+    balance = Number.parseFloat(totalExpenditure) + Number.parseFloat(totalIncome);
+    balance = balance.toFixed(2);
+    // 数据汇总
+    summary.totalExpenditure = totalExpenditure;
+    summary.totalIncome = totalIncome;
+    summary.balance = balance;
+    result.summary = summary;
     return result;
   },
   /**
@@ -130,8 +154,8 @@ const ACTIONC_MAP = {
   },
   upload: async function (params) {
     // 洗数
-    // let res = await setStringToDate(params);
-    return true;
+    let res = await setStringToDate(params);
+    return res;
   },
 }
 
@@ -173,19 +197,25 @@ function getFilePath() {
   async function setStringToDate(params) {
     const MAX_LIMIT = 100;
     let {pageNumber} = params;
-    console.log('pageNumber', pageNumber);
-    let dataResult = await db.collection(CONFIG.collection).skip(pageNumber * MAX_LIMIT).limit(MAX_LIMIT).get();
+    let dataResult = await db.collection(CONFIG.collection).where({
+      _openid: params._openid,
+    }).skip(pageNumber * MAX_LIMIT).limit(MAX_LIMIT).get();
     if (!dataResult || !dataResult.data || !dataResult.data.length) {
       return false;
     }
+    let result = true;
     for (let index = 0; index < dataResult.data.length; index++) {
       const element = dataResult.data[index];
+      if (typeof element.date !== 'string' && typeof element.money !== 'string') continue;
       let formatDateString = UTILS.convertDateString(element.date);
+      let formatMoney = UTILS.convertMoneyNuber(element.money);
       let res = await db.collection(CONFIG.collection).doc(element._id).update({data: {
-        date: new Date(formatDateString)
+        date: new Date(formatDateString),
+        money: formatMoney
       }});
+      result = result && res;
     }
-    return true;
+    return result;
   }
 
 // 此处将获取永久有效的小程序码，并将其保存在云文件存储中，最后返回云文件 ID 给前端使用

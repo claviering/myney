@@ -3,6 +3,8 @@
   <view class="header">
     <header
       id="header"
+      curTimeText="{{curTimeText}}"
+      summary="{{summary}}"
       bind:toggleRightMenu="toggleRightMenu"
       bind:toggleLeftMenu="toggleLeftMenu" />
   </view>

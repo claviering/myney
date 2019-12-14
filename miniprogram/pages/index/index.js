@@ -7,6 +7,7 @@ Page({
     showRightMenu: false,
     dataObject: {},
     timeType: '',
+    curTimeText: '',
   },
   toggleLeftMenu: function () {
     this.setData({
@@ -18,7 +19,7 @@ Page({
   },
   toggleRightMenu: function () {
     // TODO: 导入导出未开发完成
-    return;
+    // return;
     this.setData({
       showRightMenu: !this.data.showRightMenu
     })
@@ -26,21 +27,36 @@ Page({
   onLoad: function() {
     this.get()
   },
-  get: async function (from, to, timeType) {
+  setCurTimeText: function (from, to, timeType) {
+    if (!from || !to) return;
+    let curTimeText = '';
+    if (timeType === 'day') {
+      curTimeText = from.split(' ')[0];
+    } else {
+      curTimeText = from.split(' ')[0] + ' - ' + to.split(' ')[0];
+    }
+    this.setData({
+      curTimeText: curTimeText
+    })
+  },
+  get: async function (from, to, timeType = 'day') {
+    let params = {
+      timeType,
+      from: timer.formatDate(from) + ' 00:00:00',
+      to: timer.formatDate(to) + ' 23:59:59'
+    }
     let res = await wx.cloud.callFunction({
       name: 'openapi',
       data: {
         action: 'get',
-        params: {
-          timeType,
-          from: timer.formatDate(from) + ' 00:00:00',
-          to: timer.formatDate(to) + ' 23:59:59'
-        }
+        params
       }
     })
+    this.setCurTimeText(params.from, params.to, params.timeType);
     if (res && res.result && res.result.data) {
       this.setData({
-        dataObject: res.result.data
+        dataObject: res.result.data,
+        summary: res.result.summary,
       })
     }
   },

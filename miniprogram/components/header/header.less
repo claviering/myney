@@ -1,14 +1,23 @@
 .components-header{
-  display: flex;
-  justify-content: space-between;
-  .icon{
-    font-size: 7vw;
-    transition: 0.5s;
+  .components-header-oper{
+    display: flex;
+    justify-content: space-between;
+    .icon{
+      font-size: 7vw;
+      transition: 0.5s;
+    }
+    .rotate{
+      transform: rotate(-90deg);
+    }
+    .setting-rotate{
+      transform: rotate(90deg);
+    }
   }
-  .rotate{
-    transform: rotate(-90deg);
+  .cur-time{
+    text-align: center;
   }
-  .setting-rotate{
-    transform: rotate(90deg);
+  .summary-text{
+    display: flex;
+    justify-content: space-around;
   }
 }

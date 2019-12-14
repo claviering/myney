@@ -1,9 +1,19 @@
 <view class="components-header">
-  <view
-    bindtap="openLeftMenu"
-    class="icon icon-options {{isOpenLeftMenu ? '' : 'rotate'}}" />
-  <view
-  bindtap="openRightMenu"
-  class="icon icon-settings {{isOpenRightMenu ? '' : 'setting-rotate'}}" />
+  <view class="components-header-oper">
+    <view
+      bindtap="openLeftMenu"
+      class="icon icon-options {{isOpenLeftMenu ? '' : 'rotate'}}" />
+    <view
+    bindtap="openRightMenu"
+    class="icon icon-settings {{isOpenRightMenu ? '' : 'setting-rotate'}}" />
+  </view>
+  <view class="cur-time">
+    {{curTimeText}}
+  </view>
+  <view class="summary-text">
+    <view> {{summary.totalExpenditure}} </view>
+    <view> {{summary.totalIncome}} </view>
+    <view> {{summary.balance}} </view>
+  </view>
 </view>
   

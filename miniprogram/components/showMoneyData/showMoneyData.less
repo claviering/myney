@@ -30,6 +30,8 @@
     }
     .category{
       margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
     }
     .money-detail{
       display: flex;
@@ -38,7 +40,11 @@
       width: 76vw;
       height: 3vh;
       .money{
-        text-align: center;
+        min-width: 15vw;
+        max-width: 42vw;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
       .remark{
         text-align: center;
@@ -47,12 +53,12 @@
       .date{
         width: max-content;
       }
-      .negative{
-        color: @negativeColor;
-      }
-      .positive{
-        color: @positiveColor;
-      }
+    }
+    .negative{
+      color: @negativeColor;
+    }
+    .positive{
+      color: @positiveColor;
     }
   }
 }

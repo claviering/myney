@@ -3,7 +3,9 @@ Component({
     addGlobalClass: true,
   },
   properties: {
-    closeHeadMenuType: String
+    closeHeadMenuType: String,
+    curTimeText: String,
+    summary: Object,
   },
   data: {
     isOpenLeftMenu: false,

@@ -83,5 +83,14 @@ module.exports = {
     let [DD, MM, YYYY] = dataArray;
     let newDateString = `${YYYY}/${MM}/${DD}`
     return newDateString;
+  },
+  /**
+   * 1,124 转 1124,  删除逗号
+   * @param {String} moneyString 金钱
+   */
+  convertMoneyNuber: function (moneyString) {
+    if (typeof moneyString !== 'string') return moneyString;
+    let money = moneyString ? Number.parseFloat(moneyString.replace(/,/gi, '')) : 0 // 删除数字中的逗号
+    return money;
   }
 }

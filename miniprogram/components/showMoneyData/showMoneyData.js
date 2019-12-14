@@ -5,7 +5,8 @@ const utils = require('../../utils/index')
 
 Component({
   properties: {
-    dataObject: Object
+    dataObject: Object,
+    summary: Object,
   },
   data: {
     startX: '',

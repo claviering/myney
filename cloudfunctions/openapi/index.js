@@ -24,7 +24,7 @@ exports.main = async (event, context) => {
     } catch (error) {
       return {
         error,
-        message: '请求错误， 触发异常',
+        message: '程序错误, 触发异常',
       }
     }
   } else {
@@ -49,15 +49,39 @@ const ACTIONC_MAP = {
    * @param {*} context 
    */
   get: async function (params, context) {
-    let {from, to, timeType} = params
-    let result = await db.collection(CONFIG.collection).where({
+    let {from, to, timeType} = params;
+    const MAX_LIMIT = 100;
+    // 先取出集合记录总数
+    const countResult = await db.collection(CONFIG.collection).where({
       _openid: params._openid,
       date: _.gte(new Date(from)).and(_.lte(new Date(to)))
-    }).field({_openid: false}).get()
+    }).count();
+    const total = countResult.total;
+    // 计算需分几次取
+    const batchTimes = Math.ceil(total / MAX_LIMIT);
+    // 承载所有读操作的 promise 的数组
+    const tasks = [];
+    for (let i = 0; i < batchTimes; i++) {
+      const promise = db.collection(CONFIG.collection).where({
+        _openid: params._openid,
+        date: _.gte(new Date(from)).and(_.lte(new Date(to)))
+      }).field({_openid: false}).get();
+      tasks.push(promise);
+    }
+    let resultList = await Promise.all(tasks);
+    let result = {
+      summary: {},
+      data: [],
+    };
+    if (!resultList || !resultList.length) return result;
+    resultList.forEach(item => {
+      result.data = [...result.data, ...item.data];
+    });
     if (!result || !result.data || !result.data.length) {
       result.summary = {};
       return result;
     }
+    // 显示格式处理
     result.data.forEach(item => {
       item.dateText = timeType === 'year' ? UTILS.formatDate(item.date) : UTILS.formatMonthDay(item.date);
       item.moneyText = item.money && item.money.toLocaleString();

@@ -76,4 +76,16 @@ module.exports = {
    * @param {Object} obj 
    */
   objectToQueryString: (obj) => Object.keys(obj).map((key) => `${key}=${obj[key]}`).join('&'),
+  /**
+   * 判断用户滑动左滑还是右滑
+   */
+  getTouchData: (endX, endY, startX, startY) => {
+    let turn = "";
+    if (endX - startX > 50 && Math.abs(endY - startY) < 50) { // 右滑
+      turn = "RIGHT";
+    } else if (endX - startX < -50 && Math.abs(endY - startY) < 50) { // 左滑
+      turn = "LEFT";
+    }
+    return turn;
+  }
 }

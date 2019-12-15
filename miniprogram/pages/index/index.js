@@ -1,5 +1,6 @@
 const timer = require('./../../utils/time.js');
-const app = getApp()
+const utils = require('./../../utils/index.js');
+const app = getApp();
 
 Page({
   data: {
@@ -8,6 +9,8 @@ Page({
     dataObject: {},
     timeType: '',
     curTimeText: '',
+    touchStartX: 0,
+    touchStartY: 0,
   },
   toggleLeftMenu: function () {
     this.setData({
@@ -19,7 +22,7 @@ Page({
   },
   toggleRightMenu: function () {
     // TODO: 导入导出未开发完成
-    // return;
+    return;
     this.setData({
       showRightMenu: !this.data.showRightMenu
     })
@@ -57,6 +60,7 @@ Page({
       this.setData({
         dataObject: res.result.data,
         summary: res.result.summary,
+        params
       })
     }
   },
@@ -78,7 +82,6 @@ Page({
       timeType
     })
   },
-
   // 上传图片
   doUpload: function () {
     // 选择图片
@@ -128,5 +131,41 @@ Page({
       }
     })
   },
-
+  touchStart: function (e) {
+    this.setData({
+      touchStartX: e.changedTouches[0].clientX,
+      touchStartY: e.changedTouches[0].clientY
+    });
+  },
+  touchEnd: function (e) {
+    let x = e.changedTouches[0].clientX;
+    let y = e.changedTouches[0].clientY;
+    let startX = this.data.touchStartX;
+    let startY = this.data.touchStartY;
+    let direction = utils.getTouchData(x, y, startX, startY);
+    console.log('direction', direction);
+    this.changeTime(direction);
+  },
+  /**
+   * 
+   * @param {String} direction 左滑或者右滑
+   */
+  changeTime: function (direction) {
+    let {timeType, from, to} = this.data.params;
+    let calcStep = 0;
+    if (direction === 'RIGHT') {
+      calcStep = -1;
+    } else if (direction === 'LEFT') {
+      calcStep = 1;
+    }
+    console.log('calcStep', calcStep);
+    let timeMap = {
+      day: [timer.beforeDays(from, calcStep), timer.beforeDays(from, calcStep)],
+      week: timer.getWeekTime(from, calcStep),
+      month: timer.getMonthTime(from, calcStep),
+      year: timer.getYearTime(from, calcStep),
+    };
+    [from, to] = timeMap[timeType];
+    this.get(from, to, timeType);
+  }
 })

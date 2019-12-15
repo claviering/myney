@@ -8,7 +8,10 @@
       bind:toggleRightMenu="toggleRightMenu"
       bind:toggleLeftMenu="toggleLeftMenu" />
   </view>
-  <view class="show-money">
+  <view
+    class="show-money"
+    bindtouchstart="touchStart"
+    bindtouchend="touchEnd">
     <showMoneyData
       dataObject="{{dataObject}}"
     />

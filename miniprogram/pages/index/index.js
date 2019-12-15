@@ -48,19 +48,23 @@ Page({
       from: timer.formatDate(from) + ' 00:00:00',
       to: timer.formatDate(to) + ' 23:59:59'
     }
+    wx.showLoading({
+      title: '加载中',
+    });
     let res = await wx.cloud.callFunction({
       name: 'openapi',
       data: {
         action: 'get',
         params
       }
-    })
+    });
+    wx.hideLoading();
     this.setCurTimeText(params.from, params.to, params.timeType);
     if (res && res.result && res.result.data) {
       this.setData({
         dataObject: res.result.data,
         summary: res.result.summary,
-        params
+        params,
       })
     }
   },

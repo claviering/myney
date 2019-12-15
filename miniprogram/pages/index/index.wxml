@@ -28,4 +28,5 @@
       bind:closeRightMenu="closeRightMenu"
     />
   </view>
+
 </view>

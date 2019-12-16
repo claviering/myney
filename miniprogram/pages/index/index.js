@@ -161,6 +161,8 @@ Page({
       calcStep = -1;
     } else if (direction === 'LEFT') {
       calcStep = 1;
+    } else {
+      return;
     }
     console.log('calcStep', calcStep);
     let timeMap = {

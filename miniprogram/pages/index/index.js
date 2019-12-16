@@ -147,7 +147,6 @@ Page({
     let startX = this.data.touchStartX;
     let startY = this.data.touchStartY;
     let direction = utils.getTouchData(x, y, startX, startY);
-    console.log('direction', direction);
     this.changeTime(direction);
   },
   /**
@@ -164,7 +163,6 @@ Page({
     } else {
       return;
     }
-    console.log('calcStep', calcStep);
     let timeMap = {
       day: [timer.beforeDays(from, calcStep), timer.beforeDays(from, calcStep)],
       week: timer.getWeekTime(from, calcStep),

@@ -3,9 +3,7 @@ Page({
     option: {},
   },
   goBackHome: function () {
-    wx.navigateTo({
-      url: '/pages/index/index'
-    });
+    wx.navigateBack();
   },
   onLoad: function(option) {
     this.setData({option});

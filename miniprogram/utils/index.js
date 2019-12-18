@@ -80,12 +80,10 @@ module.exports = {
    * 判断用户滑动左滑还是右滑
    */
   getTouchData: (endX, endY, startX, startY) => {
-    let turn = "";
     if (endX - startX > 50 && Math.abs(endY - startY) < 50) { // 右滑
-      turn = "RIGHT";
+      return "LEFT";
     } else if (endX - startX < -50 && Math.abs(endY - startY) < 50) { // 左滑
-      turn = "LEFT";
+      return "RIGHT";
     }
-    return turn;
   }
 }

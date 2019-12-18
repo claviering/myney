@@ -88,7 +88,6 @@ Component({
       if (!e || !e.target || !e.target.dataset || !e.target.dataset.key) {
         return;
       }
-      console.log('timer.time(this.data.date)', timer.time(this.data.date));
       let category = e.target.dataset.key;
       if (!this.data.money || !this.data.date) return;
       let params = {

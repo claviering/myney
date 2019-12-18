@@ -1,7 +1,7 @@
 const {
   OPERATE,
 } = require('./../../constant/index.js');
-const utils = require('../../utils/index')
+const utils = require('../../utils/index');
 
 Component({
   properties: {

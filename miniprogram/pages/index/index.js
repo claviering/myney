@@ -7,7 +7,9 @@ Page({
     showLeftMenu: false,
     showRightMenu: false,
     dataObject: {},
-    timeType: '',
+    timeType: 'day',
+    from: '',
+    to: '',
     curTimeText: '',
     touchStartX: 0,
     touchStartY: 0,
@@ -28,7 +30,11 @@ Page({
     })
   },
   onLoad: function() {
-    this.get()
+    this.get();
+  },
+  onShow: function() {
+    let {from, to, timeType} = this.data;
+    this.get(from, to, timeType);
   },
   setCurTimeText: function (from, to, timeType) {
     if (!from || !to) return;
@@ -43,14 +49,19 @@ Page({
     })
   },
   get: async function (from, to, timeType = 'day') {
+    from = timer.formatDate(from);
+    to = timer.formatDate(to);
+    this.setData({
+      timeType,
+      from,
+      to
+    });
     let params = {
       timeType,
-      from: timer.formatDate(from) + ' 00:00:00',
-      to: timer.formatDate(to) + ' 23:59:59'
-    }
-    wx.showLoading({
-      title: '加载中',
-    });
+      from: from + ' 00:00:00',
+      to: to + ' 23:59:59'
+    };
+    wx.showLoading({title: '加载中',});
     let res = await wx.cloud.callFunction({
       name: 'openapi',
       data: {
@@ -65,11 +76,12 @@ Page({
         dataObject: res.result.data,
         summary: res.result.summary,
         params,
-      })
+      });
     }
   },
   selectTime: function (myEventDetail) {
     this.toggleLeftMenu();
+    // 点击时间范围同时关闭菜单 Icon
     this.selectComponent('#header').closeMenuIcon('LEFT');
     let timeType = myEventDetail.detail;
     // 相同时间范围直接返回
@@ -79,12 +91,9 @@ Page({
       week: timer.getWeekTime(),
       month: timer.getMonthTime(),
       year: timer.getYearTime(),
-    }
-    let [from, to] = timeMap[timeType]
-    this.get(from, to, timeType)
-    this.setData({
-      timeType
-    })
+    };
+    let [from, to] = timeMap[timeType];
+    this.get(from, to, timeType);
   },
   // 上传图片
   doUpload: function () {

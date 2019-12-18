@@ -17,7 +17,7 @@
     />
   </view>
   <view class="footer">
-    <footer />
+    <footer timeTo="{{to}}" />
   </view>
   <view class="left-menu {{showLeftMenu ? 'show-left-menu' : 'hidden-left-menu'}}">
     <leftMenu

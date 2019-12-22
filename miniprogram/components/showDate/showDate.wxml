@@ -6,12 +6,11 @@
       </view>
     </picker>
   </view>
-  <view class="input-box">
+  <view class="input-box {{invaild ? 'invaild-input' : ''}}">
     <input 
-      class="input-money" 
+      class="input-money"
       focus
       value="{{money}}"
-      type="number" 
       placeholder-class='input-placeholder'
       bindinput="setMoney"
       placeholder="金额" />

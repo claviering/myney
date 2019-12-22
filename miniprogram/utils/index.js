@@ -85,5 +85,15 @@ module.exports = {
     } else if (endX - startX < -50 && Math.abs(endY - startY) < 50) { // 左滑
       return "RIGHT";
     }
+  },
+  /**
+   * 判断输入是否正确，两位小数的正整数
+   * @param {String | Numebr} number 数字
+   * @return {Boolean} true | false
+   */
+  testMoney: (number) => {
+    if (!number) return false;
+    const reg = /^\d+(\.[0-9]{0,2})?$/; // 两位小数
+    return reg.test(number.toString());
   }
 }

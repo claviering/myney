@@ -1,4 +1,4 @@
-const isDev = true;
+const isDev = false;
 
 module.exports = {
   env: isDev ? 's-c7930' : 'prod-eeurh',

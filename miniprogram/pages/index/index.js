@@ -156,6 +156,7 @@ Page({
     let startX = this.data.touchStartX;
     let startY = this.data.touchStartY;
     let direction = utils.getTouchData(x, y, startX, startY);
+    console.log('direction', direction);
     this.changeTime(direction);
   },
   /**
@@ -166,9 +167,9 @@ Page({
     let {timeType, from, to} = this.data.params;
     let calcStep = 0;
     if (direction === 'RIGHT') {
-      calcStep = -1;
-    } else if (direction === 'LEFT') {
       calcStep = 1;
+    } else if (direction === 'LEFT') {
+      calcStep = -1;
     } else {
       return;
     }

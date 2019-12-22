@@ -40,7 +40,7 @@ Component({
       // this.triggerEvent('closeRightMenu');
     },
     upload: function () {
-      this.setStringToDate(1);
+      this.setStringToDate(0);
     },
     /**
      * 洗数接口, 把 string 类型的日期转 data 类型

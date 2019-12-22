@@ -6,6 +6,7 @@ const {
   OPERATE,
 } = require('./../../constant/index.js');
 const timer = require('./../../utils/time.js');
+const utils = require('./../../utils/index.js');
 const app = getApp()
 const i18nFileName = app.globalData.i18n
 const CATEGORY_TYPE = {
@@ -26,7 +27,8 @@ Component({
     _id: '',
     categoryList: [],
     deleteText: '',
-    displayDelete: ''
+    displayDelete: '',
+    invaild: false,
   },
   methods: {
     /**
@@ -90,9 +92,15 @@ Component({
       }
       let category = e.target.dataset.key;
       if (!this.data.money || !this.data.date) return;
+      let money = this.formatMoney(this.data.money, this.data.operCode);
+      let testMoneyResult = utils.testMoney(money);
+      if (!testMoneyResult) {
+        this.showInvaild(true);
+        return;
+      }
       let params = {
         category,
-        money: this.formatMoney(this.data.money, this.data.operCode),
+        money,
         remark: this.data.remark || '',
         date: timer.time(this.data.date), // 保存为 Date 对象 才可以用于进行日期比较
       }
@@ -143,9 +151,16 @@ Component({
      * @param {event} e 用户输入金额事件
      */
     setMoney: function (e) {
-      this.setData({
-        money: e.detail.value
-      })
+      let money = e.detail.value;
+      let testMoneyResult = utils.testMoney(money);
+      if (!testMoneyResult) {
+        this.showInvaild(true);
+      } else {
+        this.showInvaild(false);
+        this.setData({
+          money: e.detail.value
+        });
+      }
     },
     /**
      * 获取用户输入的备注
@@ -155,6 +170,14 @@ Component({
       this.setData({
         remark: e.detail.value
       })
+    },
+    /**
+     * 显示错误信息
+     */
+    showInvaild: function (invaild) {
+      this.setData({
+        invaild: invaild
+      });
     },
   },
   attached() {

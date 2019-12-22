@@ -84,7 +84,7 @@ module.exports = {
   beforeDays: function (curDay, number) {
     if (!curDay || !number) return curDay;
     curDay = new Date(curDay);
-    curDay.setDate(curDay.getDate() - number);
+    curDay.setDate(curDay.getDate() + number);
     return curDay;
   }
 }

@@ -3,7 +3,7 @@ const UTILS = require('utils.js');
 const cloud = require('wx-server-sdk');
 const CONFIG = require('config.json');
 cloud.init({
-  env: CONFIG.dev_env,
+  env: CONFIG.prod_env,
 })
 const db = cloud.database();
 const _ = db.command;

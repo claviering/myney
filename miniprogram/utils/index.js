@@ -1,4 +1,6 @@
 const config = require('./../config/index.js');
+const REG = /^\d+(\.\d{1,2})?$/; // 两位小数
+
 
 module.exports = {
   // 设置语言到手机存储
@@ -93,7 +95,11 @@ module.exports = {
    */
   testMoney: (number) => {
     if (!number) return false;
-    const reg = /^\d+(\.[0-9]{0,2})?$/; // 两位小数
-    return reg.test(number.toString());
+    if (typeof number === 'number') {
+      number = Math.abs(number);
+      number = number.toString();
+    }
+    let testResult = REG.test(number);
+    return testResult;
   }
 }

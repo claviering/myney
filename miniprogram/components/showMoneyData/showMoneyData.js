@@ -41,6 +41,7 @@ Component({
     }
   },
   ready() {
+    console.log('summary', this.properties.summary);
     this.setData({
       operateMap: OPERATE
     })

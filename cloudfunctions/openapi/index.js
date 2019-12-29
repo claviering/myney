@@ -99,7 +99,8 @@ const ACTIONC_MAP = {
         let itemMoney = item.money;
         typeof summary[key] === 'undefined' ? (summary[key] = itemMoney) : (summary[key] += itemMoney);
         itemMoney > 0 ? (totalIncome += itemMoney) : (totalExpenditure += itemMoney);
-      })
+      });
+      summary[key] = Number.parseFloat(summary[key].toFixed(2));
     }
     totalExpenditure = totalExpenditure.toFixed(2);
     totalIncome = totalIncome.toFixed(2);

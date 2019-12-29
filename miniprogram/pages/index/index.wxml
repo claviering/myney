@@ -13,6 +13,7 @@
     bindtouchstart="touchStart"
     bindtouchend="touchEnd">
     <showMoneyData
+      summary="{{summary}}"
       dataObject="{{dataObject}}"
     />
   </view>

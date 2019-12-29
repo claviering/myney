@@ -61,11 +61,11 @@ const ACTIONC_MAP = {
     const batchTimes = Math.ceil(total / MAX_LIMIT);
     // 承载所有读操作的 promise 的数组
     const tasks = [];
-    for (let i = 0; i < batchTimes; i++) {
+    for (let pageNumber = 0; pageNumber < batchTimes; pageNumber++) {
       const promise = db.collection(CONFIG.collection).where({
         _openid: params._openid,
         date: _.gte(new Date(from)).and(_.lte(new Date(to)))
-      }).field({_openid: false}).get();
+      }).skip(pageNumber * MAX_LIMIT).limit(MAX_LIMIT).field({_openid: false}) .get();
       tasks.push(promise);
     }
     let resultList = await Promise.all(tasks);

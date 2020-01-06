@@ -78,6 +78,10 @@ const LanguageMap = {
       key: 'Game',
       value: 'Game'
     },
+    {
+      key: 'Living expenses',
+      value: 'Living expenses'
+    },
   ],
   TIME_RANGE: [
     {

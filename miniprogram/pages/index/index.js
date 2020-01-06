@@ -14,6 +14,9 @@ Page({
     touchStartX: 0,
     touchStartY: 0,
   },
+  onShareAppMessage: function (params) {
+    
+  },
   toggleLeftMenu: function () {
     this.setData({
       showLeftMenu: !this.data.showLeftMenu

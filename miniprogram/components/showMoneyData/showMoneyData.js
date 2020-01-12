@@ -23,7 +23,6 @@ Component({
       let id = event.currentTarget.dataset.id
       let category = event.currentTarget.dataset.category
       let curItem = utils.get(this.data.dataObject[category], '_id', id);
-      console.log('curItem', curItem);
       this.writebackData(curItem)
     },
     /**
@@ -41,7 +40,6 @@ Component({
     }
   },
   ready() {
-    console.log('summary', this.properties.summary);
     this.setData({
       operateMap: OPERATE
     })

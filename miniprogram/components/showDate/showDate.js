@@ -29,8 +29,26 @@ Component({
     deleteText: '',
     displayDelete: '',
     invaild: false,
+    loading: false, // 反正网络不好的时候多次添加
   },
   methods: {
+    getSystemInfo: function () {
+      let modelList = ['iPhone X', 'iPhone 11', 'iPhone 12'];
+      let _this = this;
+      let isiPhone = false;
+      wx.getSystemInfo({
+        success (res) {
+          if (!res || !res.model) return;
+          modelList.forEach(item => {
+            let index = res.model.indexOf(item)
+            isiPhone = isiPhone || (index > -1 ? true : false);
+          });
+          _this.setData({
+            isiPhone: isiPhone
+          });
+        }
+      })
+    },
     /**
      * 保存数据
      * @param {Object} params  保存到数据库的参数
@@ -86,8 +104,8 @@ Component({
      * 用户选择分类，然后请求接口保存到数据库
      * @param {event} e 点击选择分类事件
      */
-    selectCateGory: function (e) {
-      if (!e || !e.target || !e.target.dataset || !e.target.dataset.key) {
+    selectCateGory: async function (e) {
+      if (!e || !e.target || !e.target.dataset || !e.target.dataset.key || this.data.loading) {
         return;
       }
       let category = e.target.dataset.key;
@@ -105,12 +123,18 @@ Component({
         date: timer.time(this.data.date), // 保存为 Date 对象 才可以用于进行日期比较
       }
       let _id = this.data._id
+      this.setData({
+        loading: true
+      })
       if (_id) {
         params._id = _id;
-        this.update(params);
+        await this.update(params);
       } else {
-        this.add(params);
+        await this.add(params);
       }
+      this.setData({
+        loading: false
+      })
     },
     /**
      * 根据 operCode 格式化金钱的正负数
@@ -181,7 +205,8 @@ Component({
     },
   },
   attached() {
-    this.showTime()
+    this.showTime();
+    this.getSystemInfo();
   },
   ready() {
     if (!this.properties.option) return;

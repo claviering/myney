@@ -1,5 +1,8 @@
 <!--index.wxml-->
 <view class="container">
+  <view>
+  </view>
+    
   <view class="header">
     <header
       id="header"

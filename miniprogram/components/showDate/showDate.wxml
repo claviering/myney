@@ -28,12 +28,14 @@
       class="category-item"
       wx:for="{{categoryList}}"
       wx:key="item.key"
-      data-key="{{item.key}}"
-      >
-      {{item.value}}
+      data-key="{{item.key}}">
+      <image 
+        data-key="{{item.key}}"
+        src="{{item.image}}" 
+        alt="{{item.value}}"></image>
     </view>
   </view>
-  <view class="delete" style="display: {{displayDelete}}">
+  <view class="delete {{isiPhone ? 'add-padding' : ''}}" style="display: {{displayDelete}}">
     <button bindtap="remove">{{deleteText}}</button>
   </view>
 </view>

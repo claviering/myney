@@ -154,12 +154,11 @@ Page({
     });
   },
   touchEnd: function (e) {
-    let x = e.changedTouches[0].clientX;
-    let y = e.changedTouches[0].clientY;
+    let x = e.changedTouches[0] && e.changedTouches[0].clientX;
+    let y = e.changedTouches[0] && e.changedTouches[0].clientY;
     let startX = this.data.touchStartX;
     let startY = this.data.touchStartY;
     let direction = utils.getTouchData(x, y, startX, startY);
-    console.log('direction', direction);
     this.changeTime(direction);
   },
   /**

@@ -26,61 +26,81 @@ const LanguageMap = {
   EXPEND_CATEGORY_LIST: [
     {
       key: 'Book',
-      value: 'Book'
+      value: 'Book',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/book.svg',
     },
     {
       key: 'Clothes',
-      value: 'Clothes'
+      value: 'Clothes',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/clothes.svg',
     },
     {
       key: 'Communications',
-      value: 'Communications'
+      value: 'Communications',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/phone.svg',
     },
     {
       key: 'Entertainment',
-      value: 'Entertainment'
+      value: 'Entertainment',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/movie.svg',
     },
     {
       key: 'Financial',
-      value: 'Financial'
+      value: 'Financial',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/financial.svg',
     },
     {
       key: 'Food',
-      value: 'Food'
+      value: 'Food',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/food.svg',
     },
     {
       key: 'Game',
-      value: 'Game'
+      value: 'Game',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/game.svg',
     },
     {
       key: 'Gifts',
-      value: 'Gifts'
+      value: 'Gifts',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/gifts.svg',
     },
     {
       key: 'Home',
-      value: 'Home'
+      value: 'Home',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/home.svg',
     },
     {
       key: 'Sports',
-      value: 'Sports'
+      value: 'Sports',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/Sports.svg',
     },
     {
       key: 'Transport',
-      value: 'Transport'
+      value: 'Transport',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/Transport.svg',
+    },
+    {
+      key: 'Cosmetic',
+      value: 'Cosmetic',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/cosmetic.svg',
     },
   ],
   INCOME_CATEGORY_LIST: [
     {
       key: 'Wage',
-      value: 'Wage'
+      value: 'Wage',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/wage.svg',
     },
     {
       key: 'Game',
-      value: 'Game'
+      value: 'Game',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/game.svg',
     },
     {
       key: 'Living expenses',
-      value: 'Living expenses'
+      value: 'Living expenses',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/home.svg',
+
     },
   ],
   TIME_RANGE: [

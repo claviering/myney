@@ -13,8 +13,20 @@ Component({
     startY: '',
     _id: '',
     operateMap: {},
+    toggleDetailMap: {}, // 控制各种类别是否展示
   },
   methods: {
+    /**
+     * 展开隐藏明细
+     */
+    toggleDetail: function (event) {
+      let key = event.currentTarget.dataset.key;
+      console.log('key', key);
+      let toggleDetailMap = this.data.toggleDetailMap;
+      toggleDetailMap[key] = !!!toggleDetailMap[key];
+      console.log('toggleDetailMap', toggleDetailMap);
+      this.setData({toggleDetailMap});
+    },
     /**
      * 点击明细 查看或者删除
      * @param {event} event 点击明细操作

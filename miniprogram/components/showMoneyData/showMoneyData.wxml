@@ -1,6 +1,4 @@
 <area class="components-show-money-data">
-
-    
   <view
     wx:for="{{dataObject}}"
     wx:for-index="key"
@@ -8,26 +6,32 @@
     wx:key="key"
     class="money-item"
   >
-    <view class="category">
-      <view> {{key}}</view>
+    <view class="category" bindtap="toggleDetail" data-key="{{key}}">
+      <view class="category-title"> {{key}}</view>
       <view class="{{summary[key] < 0 ? 'negative' : 'positive'}}">{{summary[key]}}</view>
+      <image 
+        class="right {{toggleDetailMap[key] ? 'rotate' : ''}}"
+        src="cloud://prod-eeurh.7072-prod-eeurh-1258641125/icon/right-32.svg" 
+        mode="aspectFit"/>
     </view>
-    <view
-      class="money-detail"
-      wx:for="{{value}}"
-      data-id="{{item._id}}"
-      data-category="{{item.category}}"
-      bindtap="tapMoneyDetail"
-      wx:key="item._id">
-      <view 
-        class="money {{item.money < 0 ? 'negative' : 'positive'}}">
-        {{item.moneyText}}
-      </view>
-      <view class="remark">
-        {{item.remark}}
-      </view>
-      <view class="date">
-        {{item.dateText}}
+    <view class="{{toggleDetailMap[key] ? '' : 'hidden'}}">
+      <view
+        class="money-detail"
+        wx:for="{{value}}"
+        data-id="{{item._id}}"
+        data-category="{{item.category}}"
+        bindtap="tapMoneyDetail"
+        wx:key="item._id">
+        <view 
+          class="money {{item.money < 0 ? 'negative' : 'positive'}}">
+          {{item.moneyText}}
+        </view>
+        <view class="remark">
+          {{item.remark}}
+        </view>
+        <view class="date">
+          {{item.dateText}}
+        </view>
       </view>
     </view>
   </view>

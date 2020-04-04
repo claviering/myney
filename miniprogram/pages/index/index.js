@@ -149,8 +149,8 @@ Page({
   },
   touchStart: function (e) {
     this.setData({
-      touchStartX: e.changedTouches[0].clientX,
-      touchStartY: e.changedTouches[0].clientY
+      touchStartX: e.changedTouches[0] && e.changedTouches[0].clientX,
+      touchStartY: e.changedTouches[0] && e.changedTouches[0].clientY
     });
   },
   touchEnd: function (e) {

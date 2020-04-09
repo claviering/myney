@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/updateMoney/updateMoney"
+    "pages/updateMoney/updateMoney",
+    "pages/pie/index"
   ],
   "window": {
     "backgroundColor": "#FFFFFF",

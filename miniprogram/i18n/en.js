@@ -123,13 +123,17 @@ const LanguageMap = {
   ],
   OPER_LIST: [
     {
-      key: 'download',
-      value: 'Download'
+      key: 'count',
+      value: 'Count'
     },
-    {
-      key: 'upload',
-      value: 'Upload'
-    },
+    // {
+    //   key: 'download',
+    //   value: 'Download'
+    // },
+    // {
+    //   key: 'upload',
+    //   value: 'Upload'
+    // },
   ],
   OPERATE: {
     delete: 'Delete',

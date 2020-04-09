@@ -13,6 +13,7 @@ Page({
     curTimeText: '',
     touchStartX: 0,
     touchStartY: 0,
+    summary: {}, // 数据汇总
   },
   onShareAppMessage: function (params) {
     
@@ -24,10 +25,13 @@ Page({
   },
   closeRightMenu: function () {
     this.toggleRightMenu();
+    let option = utils.objectToQueryString(this.data.summary);
+    let url = '/pages/pie/index?' + option;
+    wx.navigateTo({
+      url: url
+    });
   },
   toggleRightMenu: function () {
-    // TODO: 导入导出未开发完成
-    return;
     this.setData({
       showRightMenu: !this.data.showRightMenu
     })

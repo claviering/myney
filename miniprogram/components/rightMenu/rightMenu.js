@@ -1,6 +1,7 @@
 const {
   OPER_LIST,
 } = require('./../../constant/index.js');
+const utils = require('../../utils/index');
 
 Component({
   options: {
@@ -19,9 +20,16 @@ Component({
         case 'upload':
           this.upload();
           break;
+        case 'count':
+          this.count();
+          break;
         default:
           break;
       }
+    },
+    count: function (params) {
+      
+      this.triggerEvent('closeRightMenu');
     },
     download: async function () {
       let {result} = await wx.cloud.callFunction({

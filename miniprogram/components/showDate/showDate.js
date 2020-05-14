@@ -61,7 +61,6 @@ Component({
           params: params
         }
       })
-      this.triggerEvent('goBackHome')
     },
     /**
      * 跟新数据
@@ -75,7 +74,6 @@ Component({
           params: params
         }
       })
-      this.triggerEvent('goBackHome')
     },
     /**
      * 用户选择日期
@@ -91,6 +89,7 @@ Component({
       let params = {
         _id: this.data._id
       }
+      this.triggerEvent('goBackHome')
       let res = await wx.cloud.callFunction({
         name: 'openapi',
         data: {
@@ -98,7 +97,6 @@ Component({
           params: params
         }
       })
-      this.triggerEvent('goBackHome')
     },
     /**
      * 用户选择分类，然后请求接口保存到数据库
@@ -126,6 +124,7 @@ Component({
       this.setData({
         loading: true
       })
+      this.triggerEvent('goBackHome')
       if (_id) {
         params._id = _id;
         await this.update(params);

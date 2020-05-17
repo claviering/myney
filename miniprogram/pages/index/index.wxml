@@ -20,7 +20,7 @@
       dataObject="{{dataObject}}"
     />
   </view>
-  <view class="footer">
+  <view class="footer" wx:if="{{hasFooter}}">
     <footer timeTo="{{to}}" />
   </view>
   <view class="left-menu {{showLeftMenu ? 'show-left-menu' : 'hidden-left-menu'}}">

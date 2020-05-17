@@ -11,6 +11,7 @@ cloudfunctions/openapi/config.json
     "openapi": []
   },
   "collection": "money",
+  "power_collection": "power",
   "secret": "APP secret",
   "file_type": 2,
   "weixin": "https://api.weixin.qq.com",

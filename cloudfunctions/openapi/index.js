@@ -15,6 +15,10 @@ exports.main = async (event, context) => {
   const { OPENID } = cloud.getWXContext();
   if (event.params) {
     event.params._openid = OPENID // 给全部参数插入 _openid
+  } else {
+    event.params = {
+      _openid: OPENID // 给全部参数插入 _openid
+    };
   }
   const action = event.action
   if (ACTIONC_MAP[action]) {
@@ -34,6 +38,23 @@ exports.main = async (event, context) => {
 
 const ACTIONC_MAP = {
   /**
+   * 获取小程序权限
+   * @param {Object} params 
+   */
+  getPower: async function (params) {
+    let hasPower = false;
+    let resultList = await getAllData(CONFIG.power_collection, {vaild: true}, {vaild: false, _id: false});
+    let powerOpenIdList = [];
+    resultList.forEach(item => {
+      if (item.data && item.data.length) {
+        powerOpenIdList = [...powerOpenIdList, ...item.data];
+      }
+    });
+    let openIdList = powerOpenIdList.map(item => item.openid);
+    hasPower = openIdList.includes(params._openid);
+    return hasPower;
+  },
+  /**
    * 添加一条数据
    * @param {Object} data 
    * @param {*} context 
@@ -50,25 +71,11 @@ const ACTIONC_MAP = {
    */
   get: async function (params, context) {
     let {from, to, timeType} = params;
-    const MAX_LIMIT = 100;
-    // 先取出集合记录总数
-    const countResult = await db.collection(CONFIG.collection).where({
+    let whereParams = {
       _openid: params._openid,
       date: _.gte(new Date(from)).and(_.lte(new Date(to)))
-    }).count();
-    const total = countResult.total;
-    // 计算需分几次取
-    const batchTimes = Math.ceil(total / MAX_LIMIT);
-    // 承载所有读操作的 promise 的数组
-    const tasks = [];
-    for (let pageNumber = 0; pageNumber < batchTimes; pageNumber++) {
-      const promise = db.collection(CONFIG.collection).where({
-        _openid: params._openid,
-        date: _.gte(new Date(from)).and(_.lte(new Date(to)))
-      }).skip(pageNumber * MAX_LIMIT).limit(MAX_LIMIT).field({_openid: false}) .get();
-      tasks.push(promise);
     }
-    let resultList = await Promise.all(tasks);
+    let resultList = await getAllData(CONFIG.collection, whereParams, {_openid: false});
     let result = {
       summary: {},
       data: [],
@@ -191,57 +198,57 @@ function getFilePath() {
   return filePath;
 }
 
-  /**
-   * 2. 根据 jobId 查询导出是否完成
-   * @param {Number} jobId 迁移任务ID
-   * @param {String} accessToken access_tken
-   * @return 文件导出信息
-   */
-   async function databaseMigrateQueryInfo(jobId, accessToken) {
-    if (!jobId) return false;
-    const {ENV} = cloud.getWXContext()
-    let url = `${baseUrl}/tcb/databasemigratequeryinfo?access_token=${accessToken}`;
-    let params = {
-      env: ENV,
-      job_id: jobId,
-    };
-    let {data} = await axios({
-      url,
-      method: 'post',
-      headers: {'content-type': 'application/json'},
-      params: {access_token: accessToken},
-      data: params,
-    });
-    return data;
-  }
+/**
+ * 2. 根据 jobId 查询导出是否完成
+ * @param {Number} jobId 迁移任务ID
+ * @param {String} accessToken access_tken
+ * @return 文件导出信息
+ */
+async function databaseMigrateQueryInfo(jobId, accessToken) {
+  if (!jobId) return false;
+  const {ENV} = cloud.getWXContext()
+  let url = `${baseUrl}/tcb/databasemigratequeryinfo?access_token=${accessToken}`;
+  let params = {
+    env: ENV,
+    job_id: jobId,
+  };
+  let {data} = await axios({
+    url,
+    method: 'post',
+    headers: {'content-type': 'application/json'},
+    params: {access_token: accessToken},
+    data: params,
+  });
+  return data;
+}
 
-  /**
-   * 洗数
-   * 导入数据处理, 把 date 字段的 String 类型转 Date 类型
-   */
-  async function setStringToDate(params) {
-    const MAX_LIMIT = 100;
-    let {pageNumber} = params;
-    let dataResult = await db.collection(CONFIG.collection).where({
-      _openid: params._openid,
-    }).skip(pageNumber * MAX_LIMIT).limit(MAX_LIMIT).get();
-    if (!dataResult || !dataResult.data || !dataResult.data.length) {
-      return false;
-    }
-    let result = true;
-    for (let index = 0; index < dataResult.data.length; index++) {
-      const element = dataResult.data[index];
-      if (typeof element.date !== 'string' && typeof element.money !== 'string') continue;
-      let formatDateString = UTILS.convertDateString(element.date);
-      let formatMoney = UTILS.convertMoneyNuber(element.money);
-      let res = await db.collection(CONFIG.collection).doc(element._id).update({data: {
-        date: new Date(formatDateString),
-        money: formatMoney
-      }});
-      result = result && res;
-    }
-    return result;
+/**
+ * 洗数
+ * 导入数据处理, 把 date 字段的 String 类型转 Date 类型
+ */
+async function setStringToDate(params) {
+  const MAX_LIMIT = 100;
+  let {pageNumber} = params;
+  let dataResult = await db.collection(CONFIG.collection).where({
+    _openid: params._openid,
+  }).skip(pageNumber * MAX_LIMIT).limit(MAX_LIMIT).get();
+  if (!dataResult || !dataResult.data || !dataResult.data.length) {
+    return false;
   }
+  let result = true;
+  for (let index = 0; index < dataResult.data.length; index++) {
+    const element = dataResult.data[index];
+    if (typeof element.date !== 'string' && typeof element.money !== 'string') continue;
+    let formatDateString = UTILS.convertDateString(element.date);
+    let formatMoney = UTILS.convertMoneyNuber(element.money);
+    let res = await db.collection(CONFIG.collection).doc(element._id).update({data: {
+      date: new Date(formatDateString),
+      money: formatMoney
+    }});
+    result = result && res;
+  }
+  return result;
+}
 
 // 此处将获取永久有效的小程序码，并将其保存在云文件存储中，最后返回云文件 ID 给前端使用
 async function getWXACode(event) {
@@ -264,4 +271,29 @@ async function getWXACode(event) {
   }
 
   return uploadResult.fileID
+}
+
+/**
+ * 查表表的全部数据
+ * @param {*} params
+ * @param {String} collection 表名
+ * @param {Object} whereParams 查询条件
+ * @param {Object} fieldParams 返回字段条件
+ * @return {List} 数据的列表
+ */
+async function getAllData(collection, whereParams, fieldParams) {
+  const MAX_LIMIT = 100;
+  // 先取出集合记录总数
+  const countResult = await db.collection(collection).where({}).count();
+  const total = countResult.total;
+  // 计算需分几次取
+  const batchTimes = Math.ceil(total / MAX_LIMIT);
+  // 承载所有读操作的 promise 的数组
+  const tasks = [];
+  for (let pageNumber = 0; pageNumber < batchTimes; pageNumber++) {
+    const promise = db.collection(collection).where(whereParams).skip(pageNumber * MAX_LIMIT).limit(MAX_LIMIT).field(fieldParams).get();
+    tasks.push(promise);
+  }
+  let resultList = await Promise.all(tasks);
+  return resultList;
 }

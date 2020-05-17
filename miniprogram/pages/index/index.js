@@ -14,9 +14,7 @@ Page({
     touchStartX: 0,
     touchStartY: 0,
     summary: {}, // 数据汇总
-  },
-  onShareAppMessage: function (params) {
-    
+    hasFooter: false, // 是否有权限添加数据
   },
   toggleLeftMenu: function () {
     this.setData({
@@ -37,7 +35,20 @@ Page({
     })
   },
   onLoad: function() {
-    this.get();
+    this.getPower();
+  },
+  /**
+   * 获取权限，显示操作
+   */
+  getPower: async function () {
+    let res = await wx.cloud.callFunction({
+      name: 'openapi',
+      data: {
+        action: 'getPower',
+      }
+    });
+    console.log('getPower res', res);
+    this.setData({hasFooter: res.result.error ? false : res.result});
   },
   onShow: function() {
     let {from, to, timeType} = this.data;

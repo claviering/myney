@@ -25,64 +25,69 @@ const LanguageMap = {
   // 分类 TODO: 用户自定义
   EXPEND_CATEGORY_LIST: [
     {
-      key: 'Book',
+      key: '书',
       value: '书',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/book.svg',
     },
     {
-      key: 'Clothes',
+      key: '衣服',
       value: '衣服',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/clothes.svg',
     },
     {
-      key: 'Communications',
+      key: '通信',
       value: '通信',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/phone.svg',
     },
     {
-      key: 'Entertainment',
+      key: '娱乐',
       value: '娱乐',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/movie.svg',
     },
     {
-      key: 'Financial',
+      key: '金融',
       value: '金融',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/financial.svg',
     },
     {
-      key: 'Food',
+      key: '食物',
       value: '食物',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/food.svg',
     },
     {
-      key: 'Game',
+      key: '游戏',
       value: '游戏',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/game.svg',
     },
     {
-      key: 'Gifts',
+      key: '礼物',
       value: '礼物',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/gifts.svg',
     },
     {
-      key: 'Home',
+      key: '家庭',
       value: '家庭',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/home.svg',
     },
     {
-      key: 'Sports',
+      key: '运动',
       value: '运动',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/Sports.svg',
     },
     {
-      key: 'Transport',
+      key: '交通',
       value: '交通',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/Transport.svg',
     },
     {
-      key: 'Cosmetic',
+      key: '化妆品',
       value: '化妆品',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/cosmetic.svg',
+    },
+    {
+      key: '医院',
+      value: '医院',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/hospital.svg',
     },
   ],
   INCOME_CATEGORY_LIST: [

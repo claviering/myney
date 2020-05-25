@@ -84,6 +84,11 @@ const LanguageMap = {
       value: 'Cosmetic',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/cosmetic.svg',
     },
+    {
+      key: 'Hospital',
+      value: 'Hospital',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/hospital.svg',
+    },
   ],
   INCOME_CATEGORY_LIST: [
     {

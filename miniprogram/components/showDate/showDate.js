@@ -4,6 +4,7 @@ const {
   EXPEND_CATEGORY_LIST,
   INCOME_CATEGORY_LIST,
   OPERATE,
+  COMMON_TEXT
 } = require('./../../constant/index.js');
 const timer = require('./../../utils/time.js');
 const utils = require('./../../utils/index.js');
@@ -31,6 +32,7 @@ Component({
     invaild: false,
     loading: false, // 防止网络不好的时候多次添加
     isiPhone: app.globalData.isiPhone, // 判断手机类型
+    COMMON_TEXT: COMMON_TEXT, // 判断手机类型
   },
   methods: {
     /**

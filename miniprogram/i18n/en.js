@@ -105,7 +105,11 @@ const LanguageMap = {
       key: 'Living expenses',
       value: 'Living expenses',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/home.svg',
-
+    },
+    {
+      key: 'Invest',
+      value: 'Invest',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/invest.svg',
     },
   ],
   TIME_RANGE: [
@@ -152,9 +156,14 @@ const LanguageMap = {
     delete: 'Delete',
     edit: 'Edit',
   },
+  // 提示语言
   SHOW_TOAST_TEXT: {
     CHANGE_LANG: 'success, reload me'
-  }
+  },
+  COMMON_TEXT: {
+    setMoneyPlaceholder: 'money',
+    setRemarkPlaceholder: 'remark',
+  },
 }
 
 module.exports = LanguageMap

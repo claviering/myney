@@ -1,6 +1,7 @@
 const {
   OPERATE,
-  EXPEND_CATEGORY_LIST
+  EXPEND_CATEGORY_LIST,
+  INCOME_CATEGORY_LIST,
 } = require('./../../constant/index.js');
 const utils = require('../../utils/index');
 
@@ -24,6 +25,9 @@ Component({
     attached: function () {
       let languageMap = {};
       EXPEND_CATEGORY_LIST.forEach(element => {
+        languageMap[element.key] = element.value;
+      });
+      INCOME_CATEGORY_LIST.forEach(element => {
         languageMap[element.key] = element.value;
       });
       this.setData({languageMap});

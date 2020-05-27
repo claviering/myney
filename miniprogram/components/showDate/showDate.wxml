@@ -13,7 +13,7 @@
       value="{{money}}"
       placeholder-class='input-placeholder'
       bindinput="setMoney"
-      placeholder="金额" />
+      placeholder="{{COMMON_TEXT.setMoneyPlaceholder}}" />
   </view>
   <view class="input-remark">
     <input
@@ -21,7 +21,7 @@
       class="input-money"
       placeholder-class='input-placeholder'
       bindinput="setRemark"
-      placeholder="备注" />
+      placeholder="{{COMMON_TEXT.setRemarkPlaceholder}}" />
   </view>
   <view class="category-list" bindtap="selectCateGory">
     <view

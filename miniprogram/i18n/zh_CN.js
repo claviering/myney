@@ -105,7 +105,11 @@ const LanguageMap = {
       key: 'Living expenses',
       value: '生活费',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/home.svg',
-
+    },
+    {
+      key: 'Invest',
+      value: '投资',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/invest.svg',
     },
   ],
   TIME_RANGE: [
@@ -154,7 +158,11 @@ const LanguageMap = {
   },
   SHOW_TOAST_TEXT: {
     CHANGE_LANG: '切换成功, 需要重新打开'
-  }
+  },
+  COMMON_TEXT: {
+    setMoneyPlaceholder: '金额',
+    setRemarkPlaceholder: '备注',
+  },
 }
 
 module.exports = LanguageMap

@@ -7,7 +7,7 @@
     class="money-item"
   >
     <view class="category" bindtap="toggleDetail" data-key="{{key}}">
-      <view class="category-title"> {{key}}</view>
+      <view class="category-title"> {{languageMap[key]}}</view>
       <view class="{{summary[key] < 0 ? 'negative' : 'positive'}}">{{summary[key]}}</view>
       <image 
         class="right {{toggleDetailMap[key] ? 'rotate' : ''}}"

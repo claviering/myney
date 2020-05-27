@@ -25,67 +25,67 @@ const LanguageMap = {
   // 分类 TODO: 用户自定义
   EXPEND_CATEGORY_LIST: [
     {
-      key: '书',
+      key: 'Book',
       value: '书',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/book.svg',
     },
     {
-      key: '衣服',
+      key: 'Clothes',
       value: '衣服',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/clothes.svg',
     },
     {
-      key: '通信',
+      key: 'Communications',
       value: '通信',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/phone.svg',
     },
     {
-      key: '娱乐',
+      key: 'Entertainment',
       value: '娱乐',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/movie.svg',
     },
     {
-      key: '金融',
+      key: 'Financial',
       value: '金融',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/financial.svg',
     },
     {
-      key: '食物',
+      key: 'Food',
       value: '食物',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/food.svg',
     },
     {
-      key: '游戏',
+      key: 'Game',
       value: '游戏',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/game.svg',
     },
     {
-      key: '礼物',
+      key: 'Gifts',
       value: '礼物',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/gifts.svg',
     },
     {
-      key: '家庭',
+      key: 'Home',
       value: '家庭',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/home.svg',
     },
     {
-      key: '运动',
+      key: 'Sports',
       value: '运动',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/Sports.svg',
     },
     {
-      key: '交通',
+      key: 'Transport',
       value: '交通',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/Transport.svg',
     },
     {
-      key: '化妆品',
+      key: 'Cosmetic',
       value: '化妆品',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/cosmetic.svg',
     },
     {
-      key: '医院',
+      key: 'Hospital',
       value: '医院',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/hospital.svg',
     },
@@ -131,6 +131,14 @@ const LanguageMap = {
       key: 'count',
       value: '统计'
     },
+    {
+      key: 'zh_CN',
+      value: '中文'
+    },
+    {
+      key: 'en',
+      value: 'English'
+    },
     // {
     //   key: 'download',
     //   value: '导出'
@@ -144,6 +152,9 @@ const LanguageMap = {
     delete: '删除',
     edit: '编辑',
   },
+  SHOW_TOAST_TEXT: {
+    CHANGE_LANG: '切换成功, 需要重新打开'
+  }
 }
 
 module.exports = LanguageMap

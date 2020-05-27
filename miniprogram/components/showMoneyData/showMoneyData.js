@@ -1,5 +1,6 @@
 const {
   OPERATE,
+  EXPEND_CATEGORY_LIST
 } = require('./../../constant/index.js');
 const utils = require('../../utils/index');
 
@@ -14,6 +15,19 @@ Component({
     _id: '',
     operateMap: {},
     toggleDetailMap: {}, // 控制各种类别是否展示
+    languageMap: {}, // 多语言映射
+  },
+  lifetimes: {
+  /**
+   * 多语言显示分类处理
+   */
+    attached: function () {
+      let languageMap = {};
+      EXPEND_CATEGORY_LIST.forEach(element => {
+        languageMap[element.key] = element.value;
+      });
+      this.setData({languageMap});
+    },
   },
   methods: {
     /**

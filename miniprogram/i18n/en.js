@@ -131,6 +131,14 @@ const LanguageMap = {
       key: 'count',
       value: 'Count'
     },
+    {
+      key: 'zh_CN',
+      value: '中文'
+    },
+    {
+      key: 'en',
+      value: 'English'
+    },
     // {
     //   key: 'download',
     //   value: 'Download'
@@ -144,6 +152,9 @@ const LanguageMap = {
     delete: 'Delete',
     edit: 'Edit',
   },
+  SHOW_TOAST_TEXT: {
+    CHANGE_LANG: 'success, reload me'
+  }
 }
 
 module.exports = LanguageMap

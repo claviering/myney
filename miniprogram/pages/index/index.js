@@ -21,13 +21,19 @@ Page({
       showLeftMenu: !this.data.showLeftMenu
     })
   },
-  closeRightMenu: function () {
+  /**
+   * 
+   * @param {String} url 关闭右边菜单然后跳转的 url
+   */
+  closeRightMenu: function (eventDetail) {
     this.toggleRightMenu();
-    let option = utils.objectToQueryString(this.data.summary);
-    let url = '/pages/pie/index?' + option;
-    wx.navigateTo({
-      url: url
-    });
+    if (eventDetail && eventDetail.detail) {
+      let option = utils.objectToQueryString(this.data.summary);
+      let url = eventDetail.detail + '?' + option;
+      wx.navigateTo({
+        url: url
+      });
+    }
   },
   toggleRightMenu: function () {
     this.setData({
@@ -198,5 +204,5 @@ Page({
     };
     [from, to] = timeMap[timeType];
     this.get(from, to, timeType);
-  }
+  },
 })

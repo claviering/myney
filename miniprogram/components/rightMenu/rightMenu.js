@@ -1,7 +1,8 @@
+const app = getApp();
 const {
   OPER_LIST,
+  SHOW_TOAST_TEXT
 } = require('./../../constant/index.js');
-const utils = require('../../utils/index');
 
 Component({
   options: {
@@ -23,13 +24,32 @@ Component({
         case 'count':
           this.count();
           break;
+        case 'zh_CN':
+          this.changeLanguage('zh_CN');
+          break;
+        case 'en':
+          this.changeLanguage('en');
+          break;
         default:
           break;
       }
     },
-    count: function (params) {
-      
+    /**
+     * 更换小程序语言
+     * @param {String} language 
+     */
+    changeLanguage: function (language) {
+      if (!language) return;
+      wx.setStorageSync('i18n', language);
       this.triggerEvent('closeRightMenu');
+      wx.showToast({
+        title: SHOW_TOAST_TEXT.CHANGE_LANG,
+        icon: 'none',
+        duration: 2000
+      })
+    },
+    count: function () {
+      this.triggerEvent('closeRightMenu', '/pages/pie/index');
     },
     download: async function () {
       let {result} = await wx.cloud.callFunction({

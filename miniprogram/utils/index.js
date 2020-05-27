@@ -1,6 +1,4 @@
-const config = require('./../config/index.js');
 const REG = /^\d+(\.\d{1,2})?$/; // 两位小数
-
 
 module.exports = {
   // 设置语言到手机存储

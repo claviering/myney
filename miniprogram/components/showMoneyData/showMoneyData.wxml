@@ -21,7 +21,7 @@
         data-id="{{item._id}}"
         data-category="{{item.category}}"
         bindtap="tapMoneyDetail"
-        wx:key="item._id">
+        wx:key="_id">
         <view 
           class="money {{item.money < 0 ? 'negative' : 'positive'}}">
           {{item.moneyText}}

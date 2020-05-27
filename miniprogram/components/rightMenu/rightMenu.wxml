@@ -5,7 +5,7 @@
     <view
       wx:for="{{operList}}"
       data-key="{{item.key}}"
-      wx:key="item.key"
+      wx:key="key"
       class="oper-menu-item">
       {{item.value}}
     </view>

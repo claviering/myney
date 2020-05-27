@@ -1,9 +1,8 @@
 const {
   OPERATE,
-  EXPEND_CATEGORY_LIST,
-  INCOME_CATEGORY_LIST,
 } = require('./../../constant/index.js');
 const utils = require('../../utils/index');
+const app = getApp();
 
 Component({
   properties: {
@@ -23,13 +22,7 @@ Component({
    * 多语言显示分类处理
    */
     attached: function () {
-      let languageMap = {};
-      EXPEND_CATEGORY_LIST.forEach(element => {
-        languageMap[element.key] = element.value;
-      });
-      INCOME_CATEGORY_LIST.forEach(element => {
-        languageMap[element.key] = element.value;
-      });
+      let languageMap = app.getlanguageMap();
       this.setData({languageMap});
     },
   },
@@ -39,10 +32,8 @@ Component({
      */
     toggleDetail: function (event) {
       let key = event.currentTarget.dataset.key;
-      console.log('key', key);
       let toggleDetailMap = this.data.toggleDetailMap;
       toggleDetailMap[key] = !!!toggleDetailMap[key];
-      console.log('toggleDetailMap', toggleDetailMap);
       this.setData({toggleDetailMap});
     },
     /**

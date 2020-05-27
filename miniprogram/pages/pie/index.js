@@ -1,5 +1,4 @@
 import * as echarts from '../../components/ec-canvas/echarts';
-
 const app = getApp();
 
 function setOption(chart, data) {
@@ -31,25 +30,22 @@ Page({
     },
   },
   onLoad: function(option) {
-    console.log('onLoad');
-    console.log('option', option);
     let dataList = [];
     let unUseKey = ['balance', 'totalExpenditure', 'totalIncome'];
+    let languageMap = app.getlanguageMap();
     for (const [key, value] of Object.entries(option)) {
       if (!unUseKey.includes(key) && value < 0) {
         let val = Math.abs(value) / Math.abs(option.totalExpenditure) * 100;
         val = Number.parseInt(val);
         dataList.push({
           value: val,
-          name: key + '\n' + val + '%'
+          name: languageMap[key] + '\n' + val + '%'
         })
       }
     }
     this.setData({dataList})
-    console.log('dataList', dataList);
   },
   onReady() {
-    console.log('onReady');
     // 获取组件
     this.ecComponent = this.selectComponent('#mychart-dom-pie');
     this.init();

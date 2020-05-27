@@ -52,8 +52,8 @@ const ACTIONC_MAP = {
     });
     let openIdList = powerOpenIdList.map(item => item.openid);
     hasPower = openIdList.includes(params._openid);
-    return true;
-    // return hasPower;
+    // return true;
+    return hasPower;
   },
   /**
    * 添加一条数据

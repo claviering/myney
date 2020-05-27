@@ -5,7 +5,7 @@
     <view
       wx:for="{{timeRange}}"
       data-key="{{item.key}}"
-      wx:key="item.key"
+      wx:key="key"
       class="time-menu-item {{item.active ? 'active' : ''}}">
       {{item.value}}
     </view>

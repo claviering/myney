@@ -1,4 +1,4 @@
-const utils = require('/utils/index')
+// 不可以再初始化 globalData 前引入 /constant/index.js 会拿不到实例
 const config = require('/config/index.js');
 
 App({
@@ -17,7 +17,6 @@ App({
       isiPhone: false, // 判断 iPhone 是否有底部的黑条
     }
     let info = this.initSetting();
-    console.log('info', info);
     this.globalData = Object.assign(this.globalData, info)
   },
   onShow: function () {
@@ -50,5 +49,22 @@ App({
       i18n = wx.getStorageSync('i18n') || i18n;
     }
     return {isiPhone, i18n};
+  },
+  /**
+   * 生成多语言映射
+   */
+  getlanguageMap: function () {
+    const {
+      EXPEND_CATEGORY_LIST,
+      INCOME_CATEGORY_LIST,
+    } = require('/constant/index.js');
+    let languageMap = {};
+    EXPEND_CATEGORY_LIST.forEach(element => {
+      languageMap[element.key] = element.value;
+    });
+    INCOME_CATEGORY_LIST.forEach(element => {
+      languageMap[element.key] = element.value;
+    });
+    return languageMap;
   }
 })

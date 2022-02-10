@@ -89,6 +89,11 @@ const LanguageMap = {
       value: '医院',
       image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/hospital.svg',
     },
+    {
+      key: 'Pet',
+      value: '宠物',
+      image: 'cloud://prod-eeurh.7072-prod-eeurh-1258641125/pet.svg',
+    },
   ],
   INCOME_CATEGORY_LIST: [
     {

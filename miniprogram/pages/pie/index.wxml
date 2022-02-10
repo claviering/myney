@@ -1,4 +1,2 @@
-<!--index.wxml-->
-<view class="container">
-  <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec }}"></ec-canvas>
-</view>
+<!--pages/pie/index.wxml-->
+<text>pages/pie/index.wxml</text>

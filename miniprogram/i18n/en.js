@@ -137,10 +137,6 @@ const LanguageMap = {
   ],
   OPER_LIST: [
     {
-      key: 'count',
-      value: 'Count'
-    },
-    {
       key: 'zh_CN',
       value: '中文'
     },

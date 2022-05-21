@@ -15,13 +15,11 @@ App({
       userInfo: {}, // 用户信息
       i18n: '', // 用户语言
       isiPhone: false, // 判断 iPhone 是否有底部的黑条
+      EXPEND_CATEGORY_LIST: [], // 支出类别列表
+      INCOME_CATEGORY_LIST: [], // 收入类别列表
     }
     let info = this.initSetting();
     this.globalData = Object.assign(this.globalData, info)
-  },
-  onShow: function () {
-    // utils.getUserInfo(this)
-    // utils.onGetOpenid(this)
   },
   /**
    * 初始化用户配置
@@ -50,21 +48,4 @@ App({
     }
     return {isiPhone, i18n};
   },
-  /**
-   * 生成多语言映射
-   */
-  getlanguageMap: function () {
-    const {
-      EXPEND_CATEGORY_LIST,
-      INCOME_CATEGORY_LIST,
-    } = require('/constant/index.js');
-    let languageMap = {};
-    EXPEND_CATEGORY_LIST.forEach(element => {
-      languageMap[element.key] = element.value;
-    });
-    INCOME_CATEGORY_LIST.forEach(element => {
-      languageMap[element.key] = element.value;
-    });
-    return languageMap;
-  }
 })

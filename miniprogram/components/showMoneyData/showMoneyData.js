@@ -21,12 +21,42 @@ Component({
   /**
    * 多语言显示分类处理
    */
-    attached: function () {
-      let languageMap = app.getlanguageMap();
+    attached: async function () {
+      await Promise.all([
+        this.getExpendCategoryList(),
+        this.getIncomeCategoryList()
+      ])
+      let languageMap = {};
+      let i18n = app.globalData.i18n
+      let valueKey = i18n === 'zh_CN' ? 'zh_ch_value' : 'en_value'
+      app.globalData.EXPEND_CATEGORY_LIST.forEach(element => {
+        languageMap[element.key] = element[valueKey];
+      });
+      app.globalData.INCOME_CATEGORY_LIST.forEach(element => {
+        languageMap[element.key] = element[valueKey];
+      });
       this.setData({languageMap});
     },
   },
   methods: {
+    getExpendCategoryList: async function () {
+      let res = await wx.cloud.callFunction({
+        name: 'openapi',
+        data: {
+          action: 'getExpendCategoryList',
+        }
+      });
+      app.globalData.EXPEND_CATEGORY_LIST = res.result.data;
+    },
+    getIncomeCategoryList: async function () {
+      let res = await wx.cloud.callFunction({
+        name: 'openapi',
+        data: {
+          action: 'getIncomeCategoryList',
+        }
+      });
+      app.globalData.INCOME_CATEGORY_LIST = res.result.data;
+    },
     /**
      * 展开隐藏明细
      */

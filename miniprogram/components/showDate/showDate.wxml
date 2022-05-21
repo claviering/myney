@@ -32,10 +32,10 @@
       <image 
         data-key="{{item.key}}"
         src="{{item.image}}" 
-        alt="{{item.value}}"></image>
+        alt="{{item.key}}"></image>
     </view>
   </view>
-  <view class="delete {{isiPhone ? 'add-padding' : ''}}" style="display: {{displayDelete}}">
+  <view wx:if="{{displayDelete}}" class="delete {{isiPhone ? 'add-padding' : ''}}">
     <button bindtap="remove">{{deleteText}}</button>
   </view>
 </view>

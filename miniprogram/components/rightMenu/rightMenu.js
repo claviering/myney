@@ -63,7 +63,6 @@ Component({
       }
       let  url = result.file_url;
       wx.downloadFile({url, success (downloadResult) {
-        console.log('downloadResult', downloadResult);
       }});
       // this.triggerEvent('closeRightMenu');
     },
@@ -84,7 +83,6 @@ Component({
           }
         }
       });
-      console.log('result', result);
       if (result) {
         this.setStringToDate(pageNumber + 1);
       }

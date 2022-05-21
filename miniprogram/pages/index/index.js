@@ -53,7 +53,6 @@ Page({
         action: 'getPower',
       }
     });
-    console.log('getPower res', res);
     this.setData({hasFooter: res.result.error ? false : res.result});
   },
   onShow: function() {
@@ -140,8 +139,6 @@ Page({
           cloudPath,
           filePath,
           success: res => {
-            console.log('[上传文件] 成功：', res)
-
             app.globalData.fileID = res.fileID
             app.globalData.cloudPath = cloudPath
             app.globalData.imagePath = filePath

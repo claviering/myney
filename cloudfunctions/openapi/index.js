@@ -38,6 +38,22 @@ exports.main = async (event, context) => {
 
 const ACTIONC_MAP = {
   /**
+   * 获取图标菜单
+   * @param {Object} params 
+   */
+  getExpendCategoryList: async function (params) {
+    const data = await db.collection('expend_category').where({
+      deleted: 0
+    }).orderBy('order', 'asc').field({ deleted: false, order: false, _id: false}).get();
+    return data;
+  },
+  getIncomeCategoryList: async function (params) {
+    const data = await db.collection('income_category').where({
+      deleted: 0
+    }).orderBy('order', 'asc').field({ deleted: false, order: false, _id: false}).get();
+    return data;
+  },
+  /**
    * 获取小程序权限
    * @param {Object} params 
    */

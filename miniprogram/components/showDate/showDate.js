@@ -1,8 +1,6 @@
 const {
   WEEK,
   MONTH,
-  EXPEND_CATEGORY_LIST,
-  INCOME_CATEGORY_LIST,
   OPERATE,
   COMMON_TEXT
 } = require('./../../constant/index.js');
@@ -10,10 +8,7 @@ const timer = require('./../../utils/time.js');
 const utils = require('./../../utils/index.js');
 const app = getApp()
 const i18nFileName = app.globalData.i18n
-const CATEGORY_TYPE = {
-  negative: EXPEND_CATEGORY_LIST,
-  positive: INCOME_CATEGORY_LIST,
-}
+
 
 Component({
   properties: {
@@ -28,7 +23,7 @@ Component({
     _id: '',
     categoryList: [],
     deleteText: '',
-    displayDelete: '',
+    displayDelete: false,
     invaild: false,
     loading: false, // 防止网络不好的时候多次添加
     isiPhone: app.globalData.isiPhone, // 判断手机类型
@@ -195,6 +190,10 @@ Component({
   ready() {
     if (!this.properties.option) return;
     this.showTime(this.properties.option.date);
+    const CATEGORY_TYPE = {
+      negative: app.globalData.EXPEND_CATEGORY_LIST,
+      positive: app.globalData.INCOME_CATEGORY_LIST,
+    }
     // 设置分类类别
     this.setData({
       categoryList: CATEGORY_TYPE[this.properties.option.operCode],
@@ -204,7 +203,7 @@ Component({
       _id: this.properties.option._id,
       operCode: this.properties.option.operCode,
       deleteText: OPERATE.delete,
-      displayDelete: this.properties.option._id ? '' : 'none'
+      displayDelete: this.properties.option._id ? true : false
     })
   }
 })

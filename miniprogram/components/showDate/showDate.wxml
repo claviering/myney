@@ -27,7 +27,7 @@
     <view
       class="category-item"
       wx:for="{{categoryList}}"
-      wx:key="{{item.key}}"
+      wx:key="key"
       data-key="{{item.key}}">
       <image 
         data-key="{{item.key}}"

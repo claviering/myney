@@ -20,23 +20,23 @@
     height: 25vw;
     width: 25vw;
     border-radius: 50%;
-    background: #FFF;
+    background: var(--weui-BG-2);
     border: 3vw solid;
     position: relative;
   }
   .negative{
-    border-color: @negativeColor;
+    border-color: var(--weui-RED);
     &::after{
-      .centerSymbol(2vw, 10vw, @negativeColor);
+      .centerSymbol(2vw, 10vw, var(--weui-RED));
     }
   }
   .positive{
-    border-color: @positiveColor;
+    border-color: var(--weui-GREEN);
     &::before{
-      .centerSymbol(10vw, 2vw, @positiveColor);
+      .centerSymbol(10vw, 2vw, var(--weui-GREEN));
     }
     &::after{
-      .centerSymbol(2vw, 10vw, @positiveColor);
+      .centerSymbol(2vw, 10vw, var(--weui-GREEN));
     }
   }
 }

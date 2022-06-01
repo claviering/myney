@@ -1,6 +1,34 @@
 @import "public/style.less";
+
 page {
-  background: #FFFFFF;
+  --weui-BG-2: #fff;
+  --weui-RED: #fa5151;
+  --weui-GREEN: #3eb575;
+  --weui-BLUE: #10aeff;
+  --weui-BG-4: #4c4c4c;
+  --weui-FG-2: hsla(0,0%,100%,.3);
+  --weui-FG-3: hsla(0,0%,100%,.1);
+  .dark{
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme:dark) {
+  page{
+    --weui-BG-2: #191919;
+    --weui-RED: #fa5151;
+    --weui-GREEN: #3eb575;
+    --weui-BLUE: #10aeff;
+    --weui-BG-4: #404040;
+    --weui-FG-2: hsla(0,0%,100%,.3);
+    --weui-FG-3: hsla(0,0%,100%,.1);
+    .light{
+      display: none;
+    }
+  }
+}
+page {
+  background: var(--weui-BG-2);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -11,7 +39,7 @@ page {
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  background: #FFFFFF;
+  background: var(--weui-BG-2);
 } 
 
 button {

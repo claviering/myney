@@ -1,5 +1,21 @@
 @import "../../global.less";
 
+@media (prefers-color-scheme:light) {
+  page {
+    .dark{
+      display: none;
+    }
+  }
+}
+
+@media (prefers-color-scheme:dark) {
+  page{
+    .light{
+      display: none;
+    }
+  }
+}
+
 .input-class{
   height: 5vh;
   line-height: 5vh;
@@ -22,18 +38,18 @@
     margin: 0vw 0vw 4vw 0vw;
   }
   .invaild-input{
-    -webkit-box-shadow: 0px 0px 1px 2px @negativeColor;
-    -moz-box-shadow: 0px 0px 1px 2px @negativeColor;
-    box-shadow: 0px 0px 1px 2px @negativeColor;
+    -webkit-box-shadow: 0px 0px 1px 2px var(--weui-RED);
+    -moz-box-shadow: 0px 0px 1px 2px var(--weui-RED);
+    box-shadow: 0px 0px 1px 2px var(--weui-RED);
   }
   .input-box{
     .input-class();
-    background-color: white;
+    background-color: var(--weui-BG-2);
   }
   .input-remark{
     .input-class();
-    background-color: rgb(245, 245, 245);
-    border-bottom: 1px solid #a39e9e;
+    background-color: var(--weui-BG-2);
+    border-bottom: 1px solid var(--weui-FG-2)
   }
   .category-list{
     display: flex;
@@ -44,7 +60,7 @@
       height: 20vw;
       line-height: 20vw;
       text-align: center;
-      background: white;
+      background: var(--weui-BG-2);
       margin-bottom: 2vw;
       position: relative;
       border-radius: 5%;
@@ -77,7 +93,7 @@
     bottom: 0px;
     width: 100vw;
     button{
-      background: @negativeColor;
+      background: var(--weui-RED);
       color: #ffffff;
     }
   }

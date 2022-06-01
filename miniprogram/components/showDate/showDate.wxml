@@ -29,9 +29,15 @@
       wx:for="{{categoryList}}"
       wx:key="key"
       data-key="{{item.key}}">
-      <image 
+      <image
+        class="light"
         data-key="{{item.key}}"
         src="{{item.image}}" 
+        alt="{{item.key}}"></image>
+      <image 
+        class="dark"
+        data-key="{{item.key}}"
+        src="{{item.darkImage}}" 
         alt="{{item.key}}"></image>
     </view>
   </view>

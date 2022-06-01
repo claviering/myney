@@ -10,8 +10,12 @@
       <view class="category-title"> {{languageMap[key]}}</view>
       <view class="{{summary[key] < 0 ? 'negative' : 'positive'}}">{{summary[key]}}</view>
       <image 
-        class="right {{toggleDetailMap[key] ? 'rotate' : ''}}"
+        class="light right {{toggleDetailMap[key] ? 'rotate' : ''}}"
         src="cloud://prod-eeurh.7072-prod-eeurh-1258641125/icon/right-32.svg" 
+        mode="aspectFit"/>
+      <image 
+        class="dark right {{toggleDetailMap[key] ? 'rotate' : ''}}"
+        src="cloud://prod-eeurh.7072-prod-eeurh-1258641125/icon/right-dark-32.svg" 
         mode="aspectFit"/>
     </view>
     <view class="{{toggleDetailMap[key] ? '' : 'hidden'}}">

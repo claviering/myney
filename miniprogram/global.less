@@ -1,15 +1,12 @@
 // out: false
 
-@negativeColor: #f2317f; // 减号颜色
-@positiveColor: #00c07f; // 加好颜色
-
 .button{
   height: 20vw;
   line-height: 20vw;
   white-space: nowrap;
-  background: #fff;
-  border: 1px solid #dcdfe6;
-  color: #606266;
+  background: var(--weui-BG-2);
+  border: 1px solid var(--weui-FG-2);
+  color: var(--weui-BG-4);
   -webkit-appearance: none;
   text-align: center;
   box-sizing: border-box;
@@ -22,7 +19,7 @@
   border-radius: 4px;
 }
 .button-active{
-  color: #409eff;
-  border-color: #c6e2ff;
-  background-color: #ecf5ff;
+  color: var(--weui-BLUE);
+  border-color: var(--weui-FG-2);
+  background-color: var(--weui-FG-3);
 }

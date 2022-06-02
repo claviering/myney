@@ -67,8 +67,8 @@ const LanguageMap = {
     CHANGE_LANG: 'success, reload me'
   },
   COMMON_TEXT: {
-    setMoneyPlaceholder: 'money',
-    setRemarkPlaceholder: 'remark',
+    setMoneyPlaceholder: 'input money',
+    setRemarkPlaceholder: 'input remark',
   },
 }
 
